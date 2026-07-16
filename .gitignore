@@ -27,13 +27,8 @@ yarn-error.log*
 # wrangler
 .wrangler/
 
-# Generated placeholder media (created by scripts/make-placeholders.mjs on
-# dev/build). Real photography/video is added out-of-band — see
-# public/media/README.md. Remove these ignores if you want the real binary
-# assets tracked in git instead of hosted separately.
-public/media/**/*.jpg
-public/media/**/*.jpeg
-public/media/**/*.png
-public/media/**/*.mp4
-public/media/**/*.webp
+# Real photography/video downloaded from hollidaylakehouse.com is committed to
+# git (see public/media/README.md). The placeholder generator
+# (scripts/make-placeholders.mjs) skips any file that already exists, so these
+# real assets are authoritative.
 package-lock.json

@@ -4,55 +4,48 @@ import { site } from '../../data/site';
 
 // Guest Guidelines — preserved at the exact path /hlhid2604/.
 //
-// NOTE: The original Guest Guidelines copy lives on hollidaylakehouse.com,
-// which was unreachable from the build environment (blocked by egress policy),
-// so the sections below are PLACEHOLDER structure. Replace the body text with
-// the authoritative guidelines. The route/path itself is what matters and is
-// preserved exactly.
+// Copy is the authoritative content from the live Guest Guidelines page at
+// hollidaylakehouse.com/hlhid2604/ (page version 3.0), reproduced verbatim.
 
-const sections = [
+const intro = [
+  'Welcome to our recently renovated Holliday Lake House. If you’re seeking a serene retreat away from the hustle and bustle of city life, this is the perfect destination for you. Surrounded by towering trees and breathtaking natural beauty, our retreat offers a tranquil escape where you can unwind and reconnect with nature.',
+  'The property and house are in the woods and driving approximately 2.5 miles on an unpaved road is required to access the house. The property is accessible by regular cars (including sedans) year around, except when there has been a recent winter storm, when an all-wheel drive vehicle might be required. It is recommended to arrive in daylight hours, if possible, on the check-in day to more easily locate the property, especially in increment weather conditions.',
+  'There is a caretaker onsite located about 800′ up the hill. They will typically greet new guests at arrival and show the house and answer any questions. They are generally available during your stay to answer questions or address any issues. They access the location via the same entrance, and you may see a car on the driveway. They will keep the noise to a minimum and always be respectful of the quiet time hours. Your privacy is extremely important to us so if at any time there are questions/concerns, please notify us.',
+];
+
+const rules = [
+  'Well-behaved potty-trained dogs are welcome but not on the beds or furniture, please don’t let your dogs or children disturb the birds and wildlife. Please no more than 2 dogs. Dog Bags are available in the hall utility closet.',
+  'Fishing is catch and release only.',
+  'Although we are remote, we do have neighbors, and sound travels a long distance here.',
+  'Wi-Fi Internet is available. Use the HLH SSID. There is no password required. Access to internet via Starlink. Cell phone signal can be spotty on the property.',
+  'You are on a septic system; please try to put food waste in the trash and reduce the solids to the septic system.',
+  'Limit the TP you put in the toilet and absolutely no flushing of feminine hygiene products.',
+  'Be aware that burrs & stickers are plentiful on the property during specific seasons.',
+  'We have deer, geese, pigs, turkeys, and bears, which come through the property. Do NOT leave food in your car or outside! Bear spray is available.',
+  'Please note that this property is nestled in the Sierras. However, being in such a pristine, natural environment means we occasionally encounter some of nature’s residents, such as ants, spiders, insects, mice and cobwebs. While we take every precaution to minimize these occurrences, they are a natural part of the mountain experience.',
+  'No outdoor fires and no fireworks – including sparklers. Please use extreme caution with any outdoor heat or fire source. During Fire Season, we will enforce a no-tolerance with any violation that risks starting a fire.',
+  'No smoking in the house. Should you decide to smoke in the house, you will be charged a cleaning fee. Please use extreme caution with any outdoor heat or fire source.',
+  'No lifeguard on duty. You must supervise lake activities.',
+  'Off-road ATVs, Motorcycles, Bikes, etc. must stay on the established roads. Off-road is not allowed on the property and adjacent properties.',
+  'Camping is not allowed on the property.',
+  'Gun shooting is not allowed on the property.',
+  'Parties are not allowed without prior permission.',
+  'No overnight guests other than those listed in the reservation/arrival forms.',
+  'Please note all activities on the Holliday Lake House property and your stay on the property is at your own risk. The Holliday Lake House is not responsible for any injuries to our guests. Please be aware of animals, snakes, and any other hazards noted above.',
+];
+
+const seasons = [
   {
-    title: 'Welcome',
+    title: 'Winter',
     body: [
-      'Welcome to Holliday Lake House. These guidelines help everyone enjoy the house and the land, and help us keep this special place in good hands for the next family who visits.',
+      'The Holliday Lake House is warmed with radiant heating. The floors are heated with very hot water. Although this provides an optimized method of comfort, it does not adjust quickly. Please keep this in mind when adjusting the temperature. The system is set to automatically adjust throughout the day and night during your stay.',
     ],
   },
   {
-    title: 'Arrival & Departure',
+    title: 'Summer',
     body: [
-      'Check-in and check-out times, along with directions and access details, will be shared with you before your stay. Please reach out with any questions ahead of your arrival.',
-    ],
-  },
-  {
-    title: 'The House',
-    body: [
-      'Please treat the house as you would your own home — shoes off where appropriate, gentle with the furnishings, and mindful of shared spaces.',
-      'Seven bedrooms sleep up to twenty-two. Please keep to the agreed guest count.',
-    ],
-  },
-  {
-    title: 'The Lake & The Land',
-    body: [
-      'The lake and grounds are yours to enjoy. Please swim, paddle, and explore with care, and keep an eye on children near the water at all times.',
-      'Pack out what you pack in, and help us keep the meadow, forest, and shoreline clean and wild.',
-    ],
-  },
-  {
-    title: 'Fires & Safety',
-    body: [
-      'Follow all local fire guidance and any posted restrictions. Never leave a fire unattended, and be sure it is fully out before you turn in for the night.',
-    ],
-  },
-  {
-    title: 'Quiet Hours & Neighbors',
-    body: [
-      'Sound carries across the water. Please keep evenings peaceful out of respect for neighbors and wildlife.',
-    ],
-  },
-  {
-    title: 'Before You Go',
-    body: [
-      'Please tidy up, start the dishwasher, gather trash and recycling, and leave the house as you found it. Thank you for helping us care for Holliday Lake House.',
+      'Use windows with screens to vent the house. Open in the evening when the air cools and close early morning before the day gets too hot. The House Fan can assist with venting hot air from the house.',
+      'This is wildfire territory. Please use extreme caution with any outdoor heat or fire source. Cars should never be parked or stopped on grass.',
     ],
   },
 ];
@@ -73,13 +66,31 @@ const sections = [
       </p>
     </header>
 
-    <div class="mt-10 space-y-10">
+    <div class="mt-10 space-y-4 text-bark-700">
+      {intro.map((para) => <p>{para}</p>)}
+    </div>
+
+    <section class="mt-12">
+      <h2 class="text-2xl text-bark-800">House Rules & Policies</h2>
+      <ul class="mt-4 space-y-3 text-bark-700">
+        {
+          rules.map((rule) => (
+            <li class="flex gap-3">
+              <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-600" aria-hidden="true" />
+              <span>{rule}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <div class="mt-12 space-y-10">
       {
-        sections.map((section) => (
+        seasons.map((season) => (
           <section>
-            <h2 class="text-2xl text-bark-800">{section.title}</h2>
+            <h2 class="text-2xl text-bark-800">{season.title}</h2>
             <div class="mt-3 space-y-3 text-bark-700">
-              {section.body.map((para) => (
+              {season.body.map((para) => (
                 <p>{para}</p>
               ))}
             </div>
@@ -101,5 +112,9 @@ const sections = [
         </a>.
       </p>
     </div>
+
+    <p class="mt-8 text-center text-xs uppercase tracking-[0.2em] text-bark-400">
+      ID: 2604 · Guest Guidelines v3.0
+    </p>
   </section>
 </Base>
