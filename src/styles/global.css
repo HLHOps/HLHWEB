@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+/*
+  Holliday Lake House — warm, literary theme.
+  Earth tones (browns / greens / golds), Georgia/serif typography,
+  photography-forward. No flashy animation.
+*/
+@theme {
+  /* Fonts */
+  --font-serif: Georgia, "Times New Roman", "Iowan Old Style", "Palatino Linotype", serif;
+  --font-sans: Georgia, "Times New Roman", serif;
+
+  /* Earth-tone palette */
+  --color-bark-50: #f7f3ee;
+  --color-bark-100: #ece3d8;
+  --color-bark-200: #d9c7b2;
+  --color-bark-300: #c2a684;
+  --color-bark-400: #a98661;
+  --color-bark-500: #8c6a49;
+  --color-bark-600: #70543a;
+  --color-bark-700: #574230;
+  --color-bark-800: #3d2f23;
+  --color-bark-900: #2a2018;
+
+  --color-forest-50: #f0f3ec;
+  --color-forest-100: #dbe3cf;
+  --color-forest-200: #b7c8a1;
+  --color-forest-300: #90a973;
+  --color-forest-400: #6f8b50;
+  --color-forest-500: #556e3c;
+  --color-forest-600: #43592f;
+  --color-forest-700: #364826;
+  --color-forest-800: #2a381e;
+  --color-forest-900: #1f2a16;
+
+  --color-gold-50: #faf5e9;
+  --color-gold-100: #f2e6c7;
+  --color-gold-200: #e6ce93;
+  --color-gold-300: #d9b45f;
+  --color-gold-400: #c99a38;
+  --color-gold-500: #b07f27;
+  --color-gold-600: #8f6520;
+  --color-gold-700: #6e4e1e;
+  --color-gold-800: #4f3818;
+  --color-gold-900: #362713;
+
+  --color-cream: #f7f3ee;
+  --color-ink: #2a2018;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-serif);
+    color: var(--color-ink);
+    background-color: var(--color-cream);
+    line-height: 1.7;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Understated link underline for prose links */
+.prose-link {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-gold-400);
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color 200ms ease;
+}
+.prose-link:hover {
+  text-decoration-color: var(--color-bark-600);
+}
