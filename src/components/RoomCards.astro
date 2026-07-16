@@ -1,0 +1,48 @@
+---
+import { rooms } from '../data/rooms';
+---
+
+<section id="rooms" class="mx-auto max-w-6xl px-5 py-20">
+  <header class="mx-auto mb-12 max-w-2xl text-center">
+    <h2 class="text-3xl text-bark-800 sm:text-4xl">The Rooms</h2>
+    <p class="mt-4 text-bark-600">
+      Each room has its own name, its own view, and its own quiet character.
+      Step inside.
+    </p>
+  </header>
+
+  <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      rooms.map((room) => (
+        <a
+          href={`/${room.slug}`}
+          class="group flex flex-col overflow-hidden rounded-2xl border border-bark-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+        >
+          <div class="aspect-[4/3] overflow-hidden bg-bark-100">
+            <img
+              src={room.image}
+              alt={room.name}
+              loading="lazy"
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+          <div class="flex flex-1 flex-col p-6">
+            <div class="flex items-baseline justify-between gap-3">
+              <h3 class="text-2xl text-bark-800">{room.name}</h3>
+              <span class="whitespace-nowrap text-sm text-bark-500">
+                Sleeps {room.capacity}
+              </span>
+            </div>
+            <p class="mt-1 text-sm text-bark-500">
+              {room.floor} &middot; {room.beds}
+            </p>
+            <p class="mt-3 flex-1 text-bark-600">{room.tagline}</p>
+            <span class="mt-4 text-sm text-gold-700 transition-colors group-hover:text-bark-800">
+              View room &rarr;
+            </span>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</section>

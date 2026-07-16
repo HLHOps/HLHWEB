@@ -1,0 +1,105 @@
+---
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site';
+
+// Guest Guidelines — preserved at the exact path /hlhid2604/.
+//
+// NOTE: The original Guest Guidelines copy lives on hollidaylakehouse.com,
+// which was unreachable from the build environment (blocked by egress policy),
+// so the sections below are PLACEHOLDER structure. Replace the body text with
+// the authoritative guidelines. The route/path itself is what matters and is
+// preserved exactly.
+
+const sections = [
+  {
+    title: 'Welcome',
+    body: [
+      'Welcome to Holliday Lake House. These guidelines help everyone enjoy the house and the land, and help us keep this special place in good hands for the next family who visits.',
+    ],
+  },
+  {
+    title: 'Arrival & Departure',
+    body: [
+      'Check-in and check-out times, along with directions and access details, will be shared with you before your stay. Please reach out with any questions ahead of your arrival.',
+    ],
+  },
+  {
+    title: 'The House',
+    body: [
+      'Please treat the house as you would your own home — shoes off where appropriate, gentle with the furnishings, and mindful of shared spaces.',
+      'Seven bedrooms sleep up to twenty-two. Please keep to the agreed guest count.',
+    ],
+  },
+  {
+    title: 'The Lake & The Land',
+    body: [
+      'The lake and grounds are yours to enjoy. Please swim, paddle, and explore with care, and keep an eye on children near the water at all times.',
+      'Pack out what you pack in, and help us keep the meadow, forest, and shoreline clean and wild.',
+    ],
+  },
+  {
+    title: 'Fires & Safety',
+    body: [
+      'Follow all local fire guidance and any posted restrictions. Never leave a fire unattended, and be sure it is fully out before you turn in for the night.',
+    ],
+  },
+  {
+    title: 'Quiet Hours & Neighbors',
+    body: [
+      'Sound carries across the water. Please keep evenings peaceful out of respect for neighbors and wildlife.',
+    ],
+  },
+  {
+    title: 'Before You Go',
+    body: [
+      'Please tidy up, start the dishwasher, gather trash and recycling, and leave the house as you found it. Thank you for helping us care for Holliday Lake House.',
+    ],
+  },
+];
+---
+
+<Base
+  title="Guest Guidelines — Holliday Lake House"
+  description="Guest Guidelines for your stay at Holliday Lake House."
+>
+  <section class="mx-auto max-w-3xl px-5 py-16">
+    <header class="border-b border-bark-200 pb-8">
+      <p class="text-sm uppercase tracking-[0.2em] text-gold-700">
+        Holliday Lake House
+      </p>
+      <h1 class="mt-3 text-4xl text-bark-800 sm:text-5xl">Guest Guidelines</h1>
+      <p class="mt-4 text-lg text-bark-600">
+        A few notes to help you settle in and make the most of your stay.
+      </p>
+    </header>
+
+    <div class="mt-10 space-y-10">
+      {
+        sections.map((section) => (
+          <section>
+            <h2 class="text-2xl text-bark-800">{section.title}</h2>
+            <div class="mt-3 space-y-3 text-bark-700">
+              {section.body.map((para) => (
+                <p>{para}</p>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+
+    <div class="mt-12 rounded-2xl bg-bark-50 p-6 text-center">
+      <p class="text-bark-700">
+        Questions during your stay? Please
+        <a
+          href={site.jotformUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="prose-link"
+        >
+          get in touch
+        </a>.
+      </p>
+    </div>
+  </section>
+</Base>

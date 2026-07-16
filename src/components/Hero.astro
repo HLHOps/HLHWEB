@@ -1,0 +1,72 @@
+---
+import { site } from '../data/site';
+---
+
+<section class="relative h-screen min-h-[600px] w-full overflow-hidden">
+  <!-- Full-screen video background -->
+  <video
+    class="absolute inset-0 h-full w-full object-cover"
+    autoplay
+    muted
+    loop
+    playsinline
+    poster={site.heroPoster}
+    aria-hidden="true"
+  >
+    <source src={site.heroVideo} type="video/mp4" />
+  </video>
+
+  <!-- Warm gradient scrim for legibility -->
+  <div
+    class="absolute inset-0 bg-gradient-to-b from-bark-900/50 via-bark-900/30 to-bark-900/70"
+  >
+  </div>
+
+  <!-- Title overlay -->
+  <div
+    class="relative flex h-full flex-col items-center justify-center px-6 text-center text-cream"
+  >
+    <h1
+      class="max-w-4xl text-4xl leading-tight drop-shadow-lg sm:text-5xl md:text-6xl"
+    >
+      Welcome to Holliday Lake House
+    </h1>
+    <p
+      class="mt-6 max-w-2xl text-lg text-cream/95 drop-shadow-md sm:text-xl md:text-2xl"
+    >
+      Discover a Unique Waterfront Getaway and Unforgettable Vacation Experience
+    </p>
+    <p
+      class="mt-4 text-base uppercase tracking-[0.2em] text-gold-200 drop-shadow sm:text-lg"
+    >
+      Now Available for Short Term Rental
+    </p>
+
+    <a
+      href="#contact"
+      class="mt-10 rounded-full border border-cream/70 bg-cream/10 px-8 py-3 text-base text-cream backdrop-blur-sm transition-colors hover:bg-cream hover:text-bark-800"
+    >
+      Plan Your Stay
+    </a>
+  </div>
+
+  <!-- Scroll cue -->
+  <div
+    class="absolute bottom-6 left-1/2 -translate-x-1/2 text-cream/80"
+    aria-hidden="true"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M6 9l6 6 6-6"></path>
+    </svg>
+  </div>
+</section>
