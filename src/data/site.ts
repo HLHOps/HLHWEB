@@ -24,7 +24,7 @@ export const propertyStory = [
     image: '/media/story/the-house.jpg',
     body: [
       'Holliday Lake House was built to be lived in slowly. Wide porches, big windows, and rooms that open toward the water invite you to settle in and stay a while.',
-      'Seven bedrooms sleep up to twenty-two, so there is room for the whole family — or the whole reunion — under one warm roof.',
+      'Seven bedrooms sleep up to twenty, so there is room for the whole family — or the whole reunion — under one warm roof.',
     ],
   },
   {
@@ -73,7 +73,7 @@ export const featureCards = [
   {
     title: 'The Property',
     image: '/media/features/the-property.jpg',
-    body: 'Seven bedrooms, room for twenty-two, and acres of lake, meadow, and forest to explore.',
+    body: 'Seven bedrooms, room for twenty, and acres of lake, meadow, and forest to explore.',
     href: '/#rooms',
   },
 ];
