@@ -18,8 +18,12 @@ there too.
 ## Required assets
 
 ### Hero
-- `Landing-Media-Made-with-Clipchamp.mp4` — full-screen hero background video.
-- `hero-poster.jpg` — poster shown before/instead of the video.
+- The full-screen hero background video is **not** stored here. It is hosted on
+  Cloudflare R2 and referenced by absolute URL from `src/data/site.ts`
+  (`heroVideo`), so it is never bundled into the Worker deploy. The current URL
+  is R2's rate-limited public development URL (testing only) — swap it for a
+  custom R2 domain before production launch.
+- `hero-poster.jpg` — local poster shown before/instead of the video.
 
 ### Logo
 - `logo-final.jpg` — circular brand emblem, used as the nav mark.
