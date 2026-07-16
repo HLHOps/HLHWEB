@@ -11,9 +11,16 @@ import { site, navLinks } from '../data/site';
   >
     <a
       href="/"
-      class="text-lg tracking-wide text-bark-800 sm:text-xl"
+      class="flex items-center gap-3 text-lg tracking-wide text-bark-800 sm:text-xl"
     >
-      <span class="font-semibold">Holliday</span> Lake House
+      <img
+        src={site.logo}
+        alt={`${site.name} emblem`}
+        width="44"
+        height="44"
+        class="h-11 w-11 rounded-full object-cover"
+      />
+      <span><span class="font-semibold">Holliday</span> Lake House</span>
     </a>
 
     <ul class="flex items-center gap-6 text-sm sm:text-base">

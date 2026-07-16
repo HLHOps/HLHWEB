@@ -2,21 +2,13 @@
 
 This folder holds the site's photography and video.
 
-The image files are **not committed to git**. Instead, running `npm run dev` or
-`npm run build` (or `npm run placeholders`) generates solid-color placeholder
-JPEGs at every path below via `scripts/make-placeholders.mjs`, so the layout
-renders and the build succeeds out of the box. The generator **skips any file
-that already exists**, so dropping a real asset in place is safe and permanent.
-
-Replace each placeholder, in place, with the real asset downloaded from
-`hollidaylakehouse.com/wp-content/uploads/`. The build environment could not
-download the originals directly — the source host is blocked by this workspace's
-outbound network (egress) policy — so the originals must be added manually (or
-the host allow-listed in a session that can reach it).
-
-> To track the real binary assets in git rather than hosting them separately,
-> remove the `public/media/**` ignore lines from the root `.gitignore` and
-> commit the files.
+The real photography and video below have been downloaded from
+`hollidaylakehouse.com/wp-content/uploads/` and are **committed to git** (the
+`public/media/**` ignore lines were removed from the root `.gitignore`). The
+placeholder generator (`scripts/make-placeholders.mjs`, still run on
+`npm run dev` / `npm run build` / `npm run placeholders`) **skips any file that
+already exists**, so these real assets are authoritative and permanent — the
+generator only fills in a solid-color placeholder if a file is ever missing.
 
 Every path below is already wired into the site — dropping the real file at the
 same path is all that's needed. Filenames are referenced from
@@ -27,9 +19,11 @@ there too.
 
 ### Hero
 - `Landing-Media-Made-with-Clipchamp.mp4` — full-screen hero background video.
-  **Not currently present** (a corrupt placeholder would error in-browser; the
-  absent file falls back cleanly to the poster below). Add the real MP4 here.
-- `hero-poster.jpg` — first-frame poster shown before/instead of the video.
+- `hero-poster.jpg` — poster shown before/instead of the video.
+
+### Logo
+- `logo-final.jpg` — circular brand emblem, used as the nav mark.
+- `android-chrome-512x512-2.png` — icon used as the PNG favicon / apple-touch-icon.
 
 ### Feature cards (`/media/features/`)
 - `experience.jpg`

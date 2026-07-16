@@ -1,13 +1,8 @@
 // Room data for Holliday Lake House.
 //
-// NOTE ON DATA PROVENANCE:
-// The bed configurations and per-room capacities below are PLACEHOLDERS that
-// sum to the brief's stated totals (7 rooms, sleeps 22). The migration brief's
-// exact per-room "beds / floor / capacity" figures were not available in the
-// build environment (the source site host is blocked by egress policy). Update
-// the `floor`, `beds`, and `capacity` fields here once the authoritative brief
-// values are confirmed — every page reads from this file, so one edit per room
-// propagates everywhere.
+// The per-room bed configurations, floors, and capacities below are the
+// authoritative figures from the migration brief (7 rooms, sleeps 22). Every
+// page reads from this file, so one edit per room propagates everywhere.
 
 export interface Room {
   /** URL slug — becomes the route, e.g. /ponderosa */
@@ -34,13 +29,13 @@ export const rooms: Room[] = [
   {
     slug: 'ponderosa',
     name: 'Ponderosa',
-    floor: 'Main level',
-    beds: '1 King bed',
+    floor: '1st floor',
+    beds: 'King, ensuite spa bath',
     capacity: 2,
-    tagline: 'A restful main-level retreat named for the great pines outside the window.',
+    tagline: 'A restful first-floor retreat named for the great pines outside the window.',
     description: [
-      'The Ponderosa room sits on the main level of the house, a quiet corner where the morning light comes in low and gold through the trees.',
-      'A king bed, soft linens, and a view of the tall ponderosa pines make this a favorite for couples and for anyone who wants to wake to birdsong and the smell of the forest.',
+      'The Ponderosa room sits on the first floor of the house, a quiet corner where the morning light comes in low and gold through the trees.',
+      'A king bed, an ensuite spa bath, and a view of the tall ponderosa pines make this a favorite for couples and for anyone who wants to wake to birdsong and the smell of the forest.',
     ],
     image: '/media/rooms/ponderosa/ponderosa-01.jpg',
     gallery: [
@@ -51,13 +46,13 @@ export const rooms: Room[] = [
   {
     slug: 'meadow',
     name: 'Meadow',
-    floor: 'Main level',
-    beds: '1 Queen bed',
-    capacity: 2,
+    floor: '2nd floor',
+    beds: 'Queen + window sleeper',
+    capacity: 3,
     tagline: 'Open, airy, and framed by the wildflower meadow that gives it its name.',
     description: [
       'The Meadow room looks out over the open grass and seasonal wildflowers that surround the house.',
-      'With a comfortable queen bed and plenty of natural light, it is an easy, unhurried space to rest between days on the lake and the land.',
+      'A queen bed and a window sleeper sleep up to three, with plenty of natural light — an easy, unhurried space to rest between days on the lake and the land.',
     ],
     image: '/media/rooms/meadow/meadow-01.jpg',
     gallery: [
@@ -68,13 +63,13 @@ export const rooms: Room[] = [
   {
     slug: 'littlemeadow',
     name: 'Little Meadow',
-    floor: 'Main level',
-    beds: '1 Queen bed',
+    floor: '2nd floor',
+    beds: '2 twin beds + crib space (accessed via Meadow)',
     capacity: 2,
-    tagline: 'A cozy companion to the Meadow room, tucked close to the garden.',
+    tagline: 'A cozy companion to the Meadow room, accessed through it.',
     description: [
-      'Little Meadow is the intimate counterpart to its larger neighbor — a snug, welcoming room close to the garden and the meadow beyond.',
-      'A queen bed and warm, earthy furnishings make it a comfortable landing place for two.',
+      'Little Meadow is the intimate counterpart to its larger neighbor — a snug, welcoming room reached through the Meadow room, with the garden and meadow beyond.',
+      'Two twin beds and space for a crib make it a comfortable, flexible spot for two, or for little ones close to the family.',
     ],
     image: '/media/rooms/littlemeadow/littlemeadow-01.jpg',
     gallery: [
@@ -85,13 +80,13 @@ export const rooms: Room[] = [
   {
     slug: 'hilltop',
     name: 'Hilltop',
-    floor: 'Upper level',
-    beds: '1 King bed',
-    capacity: 2,
+    floor: '2nd floor',
+    beds: 'Full + twin bed',
+    capacity: 3,
     tagline: 'Up top, with the longest views over the land and water.',
     description: [
-      'The Hilltop room crowns the upper level of the house, offering some of the longest views across the property toward the lake and the ridgeline.',
-      'A king bed and a quiet perch above the trees make it a peaceful place to end the day.',
+      'The Hilltop room crowns the second floor of the house, offering some of the longest views across the property toward the lake and the ridgeline.',
+      'A full bed and a twin bed sleep up to three, and a quiet perch above the trees makes it a peaceful place to end the day.',
     ],
     image: '/media/rooms/hilltop/hilltop-01.jpg',
     gallery: [
@@ -102,13 +97,13 @@ export const rooms: Room[] = [
   {
     slug: 'lake',
     name: 'Lake',
-    floor: 'Lower level',
-    beds: '2 Queen beds',
-    capacity: 4,
-    tagline: 'Closest to the water, made for families and friends.',
+    floor: '1st floor',
+    beds: 'King or 2 twins (configurable)',
+    capacity: 2,
+    tagline: 'Closest to the water, and configurable to suit your party.',
     description: [
-      'The Lake room sits on the lower level, nearest to the water and the dock.',
-      'With two queen beds it comfortably sleeps four, making it a natural choice for families or friends who want to be first to the lake each morning.',
+      'The Lake room sits on the first floor, nearest to the water and the dock.',
+      'Configurable as a king or two twin beds, it sleeps two — a natural choice for whoever wants to be first to the lake each morning.',
     ],
     image: '/media/rooms/lake/lake-01.jpg',
     gallery: [
@@ -119,13 +114,13 @@ export const rooms: Room[] = [
   {
     slug: 'loft',
     name: 'Loft',
-    floor: 'Upper level',
-    beds: '2 Queen beds',
-    capacity: 4,
-    tagline: 'An open upper-level loft under the eaves of the house.',
+    floor: '2nd floor',
+    beds: 'Queen bed, common area',
+    capacity: 2,
+    tagline: 'An open second-floor loft under the eaves of the house.',
     description: [
-      'The Loft is an open, light-filled space beneath the eaves on the upper level.',
-      'Two queen beds and a relaxed, communal feel make it ideal for a group traveling together — or for kids who want a space of their own.',
+      'The Loft is an open, light-filled space beneath the eaves on the second floor.',
+      'A queen bed and an adjoining common area give it a relaxed, sociable feel — a comfortable retreat for two at the heart of the upstairs.',
     ],
     image: '/media/rooms/loft/loft-01.jpg',
     gallery: [
@@ -136,13 +131,13 @@ export const rooms: Room[] = [
   {
     slug: 'winbeds',
     name: 'Winbeds',
-    floor: 'Lower level',
-    beds: '3 Bunk beds (6 twins)',
-    capacity: 6,
-    tagline: 'The bunk room — a playful, flexible space that sleeps the whole crew.',
+    floor: '1st & 2nd floor',
+    beds: '8 Pullman-style window sleeper beds',
+    capacity: 8,
+    tagline: 'The window-bed room — a playful, flexible space that sleeps the whole crew.',
     description: [
-      'Winbeds is the house’s bunk room, a flexible lower-level space built for the extra guests every good gathering brings.',
-      'Three sets of bunk beds sleep up to six, making it the perfect spot for cousins, kids, or a crowd of old friends.',
+      'Winbeds is the house’s window-bed room, a flexible space spanning the first and second floors and built for the extra guests every good gathering brings.',
+      'Eight Pullman-style window sleeper beds sleep up to eight, making it the perfect spot for cousins, kids, or a crowd of old friends.',
     ],
     image: '/media/rooms/winbeds/winbeds-01.jpg',
     gallery: [

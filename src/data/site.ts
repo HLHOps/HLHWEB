@@ -9,6 +9,8 @@ export const site = {
   guestGuidelinesPath: '/hlhid2604/',
   heroVideo: '/media/Landing-Media-Made-with-Clipchamp.mp4',
   heroPoster: '/media/hero-poster.jpg',
+  logo: '/media/logo-final.jpg',
+  logoIcon: '/media/android-chrome-512x512-2.png',
 };
 
 export const navLinks = [
@@ -80,12 +82,12 @@ export const featureCards = [
 
 // Photo-gallery images shown on the home page.
 export const galleryImages = [
-  { src: '/media/gallery/gallery-01.jpg', alt: 'The house at Holliday Lake House' },
-  { src: '/media/gallery/gallery-02.jpg', alt: 'The lake at sunset' },
-  { src: '/media/gallery/gallery-03.jpg', alt: 'The dock and waterfront' },
-  { src: '/media/gallery/gallery-04.jpg', alt: 'Meadow and wildflowers' },
-  { src: '/media/gallery/gallery-05.jpg', alt: 'A warm interior gathering space' },
-  { src: '/media/gallery/gallery-06.jpg', alt: 'Tall pines on the property' },
-  { src: '/media/gallery/gallery-07.jpg', alt: 'Evening by the fire' },
-  { src: '/media/gallery/gallery-08.jpg', alt: 'Morning light over the water' },
+  { src: '/media/gallery/gallery-01.jpg', alt: 'The veranda overlooking the water' },
+  { src: '/media/gallery/gallery-02.jpg', alt: 'Boats on the lake' },
+  { src: '/media/gallery/gallery-03.jpg', alt: 'The front door of the house' },
+  { src: '/media/gallery/gallery-04.jpg', alt: 'The dining room' },
+  { src: '/media/gallery/gallery-05.jpg', alt: 'The kitchen' },
+  { src: '/media/gallery/gallery-06.jpg', alt: 'The game room with pool table' },
+  { src: '/media/gallery/gallery-07.jpg', alt: 'A great oak on the property' },
+  { src: '/media/gallery/gallery-08.jpg', alt: 'Firewood ready by the hearth' },
 ];
