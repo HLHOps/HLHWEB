@@ -7,7 +7,10 @@ export const site = {
   instagramHandle: '@thehollidaylakehouse',
   instagramUrl: 'https://www.instagram.com/thehollidaylakehouse',
   guestGuidelinesPath: '/hlhid2604/',
-  heroVideo: '/media/Landing-Media-Made-with-Clipchamp.mp4',
+  // Hero background video hosted on Cloudflare R2 (kept out of the Worker
+  // asset bundle). NOTE: this is R2's rate-limited public development URL,
+  // intended for testing only — swap for a custom R2 domain before launch.
+  heroVideo: 'https://pub-d10ff531b1084493b31ae67c4e509a0b.r2.dev/Landing_Media.mp4',
   heroPoster: '/media/hero-poster.jpg',
   logo: '/media/logo-final.jpg',
   logoIcon: '/media/android-chrome-512x512-2.png',
