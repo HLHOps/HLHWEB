@@ -3,10 +3,12 @@ import { site } from '../data/site';
 ---
 
 <section class="relative h-screen min-h-[600px] w-full overflow-hidden">
-  <!-- Full-screen video background -->
+  <!-- Full-screen video background. Autoplay is driven by the script below so
+       that prefers-reduced-motion users see the static poster instead of a
+       moving background. The `autoplay` attribute is intentionally omitted. -->
   <video
+    id="hero-video"
     class="absolute inset-0 h-full w-full object-cover"
-    autoplay
     muted
     loop
     playsinline
@@ -15,6 +17,36 @@ import { site } from '../data/site';
   >
     <source src={site.heroVideo} type="video/mp4" />
   </video>
+
+  <!-- Pause/play toggle for the background video. Unobtrusive by default,
+       brighter on hover/focus, and always reachable by keyboard. -->
+  <button
+    id="hero-video-toggle"
+    type="button"
+    class="absolute bottom-6 right-6 z-20 flex h-11 w-11 items-center justify-center rounded-full border border-cream/60 bg-bark-900/40 text-cream opacity-70 backdrop-blur-sm transition hover:bg-bark-900/70 hover:opacity-100 focus-visible:opacity-100"
+    aria-label="Pause background video"
+    aria-pressed="false"
+  >
+    <svg
+      class="hero-icon-pause h-5 w-5"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+      <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+    </svg>
+    <svg
+      class="hero-icon-play hidden h-5 w-5"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M8 5v14l11-7z"></path>
+    </svg>
+  </button>
 
   <!-- Warm gradient scrim for legibility -->
   <div
@@ -70,3 +102,40 @@ import { site } from '../data/site';
     </svg>
   </div>
 </section>
+
+<script>
+  const video = document.getElementById('hero-video') as HTMLVideoElement | null;
+  const toggle = document.getElementById('hero-video-toggle');
+
+  if (video && toggle) {
+    const pauseIcon = toggle.querySelector<HTMLElement>('.hero-icon-pause');
+    const playIcon = toggle.querySelector<HTMLElement>('.hero-icon-play');
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+
+    function reflect(playing: boolean) {
+      toggle!.setAttribute('aria-label', playing ? 'Pause background video' : 'Play background video');
+      toggle!.setAttribute('aria-pressed', String(!playing));
+      pauseIcon?.classList.toggle('hidden', !playing);
+      playIcon?.classList.toggle('hidden', playing);
+    }
+
+    // Reduced-motion users get the static poster: never autoplay.
+    if (prefersReducedMotion) {
+      video.pause();
+      reflect(false);
+    } else {
+      video.play().then(() => reflect(true)).catch(() => reflect(false));
+    }
+
+    toggle.addEventListener('click', () => {
+      if (video.paused) {
+        video.play().then(() => reflect(true)).catch(() => reflect(false));
+      } else {
+        video.pause();
+        reflect(false);
+      }
+    });
+  }
+</script>

@@ -13,6 +13,14 @@ const {
   title = `${site.name} — ${site.tagline}`,
   description = 'Discover a unique waterfront getaway and unforgettable vacation experience at Holliday Lake House. Now available for short term rental.',
 } = Astro.props;
+
+// Self-referential canonical, always the trailing-slash form of this page's
+// own URL (bare paths 307-redirect to the trailing-slash version), built
+// against the production `site` domain configured in astro.config.
+const canonicalURL = new URL(
+  Astro.url.pathname.replace(/\/+$/, '') + '/',
+  Astro.site,
+);
 ---
 
 <!doctype html>
@@ -25,14 +33,21 @@ const {
     <link rel="apple-touch-icon" href={site.logoIcon} />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#3d2f23" />
   </head>
   <body class="min-h-screen bg-cream text-ink antialiased">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-bark-800 focus:px-4 focus:py-2 focus:text-cream"
+    >
+      Skip to content
+    </a>
     <Nav />
-    <main>
+    <main id="main-content">
       <slot />
     </main>
     <Footer />

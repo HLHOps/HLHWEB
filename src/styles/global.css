@@ -81,6 +81,26 @@
     max-width: 100%;
     height: auto;
   }
+
+  /*
+    Visible keyboard focus indicator for every interactive element (links,
+    buttons, form controls). Uses an outline rather than a box-shadow ring so
+    it is never clipped by the overflow-hidden hero and gallery containers, and
+    only appears for keyboard users via :focus-visible. Gold-400 reads clearly
+    on both the light cream and dark forest sections.
+  */
+  :focus-visible {
+    outline: 2px solid var(--color-gold-400);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Honor reduced-motion for the site's smooth scrolling. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
 }
 
 /* Understated link underline for prose links */

@@ -44,15 +44,15 @@ const { room } = Astro.props;
     <!-- Quick facts -->
     <dl class="mt-8 grid grid-cols-1 gap-6 rounded-2xl border border-bark-200 bg-white p-6 sm:grid-cols-3">
       <div>
-        <dt class="text-sm uppercase tracking-wide text-bark-400">Level</dt>
+        <dt class="text-sm uppercase tracking-wide text-bark-600">Level</dt>
         <dd class="mt-1 text-lg text-bark-800">{room.floor}</dd>
       </div>
       <div>
-        <dt class="text-sm uppercase tracking-wide text-bark-400">Beds</dt>
+        <dt class="text-sm uppercase tracking-wide text-bark-600">Beds</dt>
         <dd class="mt-1 text-lg text-bark-800">{room.beds}</dd>
       </div>
       <div>
-        <dt class="text-sm uppercase tracking-wide text-bark-400">Sleeps</dt>
+        <dt class="text-sm uppercase tracking-wide text-bark-600">Sleeps</dt>
         <dd class="mt-1 text-lg text-bark-800">{room.capacity} guests</dd>
       </div>
     </dl>
@@ -93,7 +93,7 @@ const { room } = Astro.props;
         rel="noopener noreferrer"
         class="mt-6 inline-block rounded-full bg-forest-600 px-8 py-3 text-cream transition-colors hover:bg-forest-700"
       >
-        Get in Touch
+        Get in Touch<span class="sr-only"> (opens in a new tab)</span>
       </a>
     </div>
   </article>
