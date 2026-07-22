@@ -26,19 +26,19 @@ export const featureCards = [
   {
     title: 'Experience',
     image: '/media/features/experience.jpg',
-    body: 'Days on the water, evenings by the fire, and the unhurried rhythm of lake life.',
+    body: 'An unforgettable vacation experience. We believe that everyone deserves to escape the stresses of everyday life and enjoy some time in a beautiful, relaxing environment.',
     href: '/#story',
   },
   {
     title: 'Ideas',
     image: '/media/features/ideas.jpg',
-    body: 'Family reunions, quiet retreats, milestone celebrations, and every gathering in between.',
+    body: 'Honeymoons, Family Retreats, Company or Team Meetings, Yoga Groups and more.',
     href: '/#story',
   },
   {
     title: 'The Property',
     image: '/media/features/the-property.jpg',
-    body: 'Seven bedrooms, room for twenty-two, and acres of lake, meadow, and forest to explore.',
+    body: 'Nested on 80 acres in the Serria Foothills. Just 6 miles to Bass Lake, 27 miles to Yosemite National Park South entrance and 45 miles from Fresno Yosemite International Airport.',
     href: '/#rooms',
   },
 ];
