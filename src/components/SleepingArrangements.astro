@@ -21,22 +21,22 @@ import {
       <table class="w-full min-w-[36rem] border-collapse text-left">
         <thead>
           <tr class="text-sm uppercase tracking-wide text-forest-200">
-            <th scope="col" class="border border-forest-700/40 px-5 py-4 font-semibold">Room</th>
+            <th scope="col" class="border border-cream/15 px-5 py-4 font-semibold">Room</th>
             {
               bedTypes.map((bed) => (
-                <th scope="col" class="border border-forest-700/40 px-4 py-4 text-center font-semibold">
+                <th scope="col" class="border border-cream/15 px-4 py-4 text-center font-semibold">
                   {bed}
                 </th>
               ))
             }
-            <th scope="col" class="border border-forest-700/40 px-5 py-4 text-right font-semibold">Sleeps</th>
+            <th scope="col" class="border border-cream/15 px-5 py-4 text-right font-semibold">Sleeps</th>
           </tr>
         </thead>
         <tbody>
           {
             sleepingMatrix.map((row) => (
               <tr>
-                <th scope="row" class="border border-forest-700/40 px-5 py-4 font-normal">
+                <th scope="row" class="border border-cream/15 px-5 py-4 font-normal">
                   {row.slug ? (
                     <a
                       href={`/${row.slug}`}
@@ -49,21 +49,21 @@ import {
                   )}
                 </th>
                 {bedTypes.map((bed) => (
-                  <td class="border border-forest-700/40 px-4 py-4 text-center text-forest-100">
+                  <td class="border border-cream/15 px-4 py-4 text-center text-forest-100">
                     {row.cells[bed] ?? ''}
                   </td>
                 ))}
-                <td class="border border-forest-700/40 px-5 py-4 text-right text-forest-100">{row.sleeps}</td>
+                <td class="border border-cream/15 px-5 py-4 text-right text-forest-100">{row.sleeps}</td>
               </tr>
             ))
           }
         </tbody>
         <tfoot>
           <tr class="text-gold-200">
-            <td class="border border-forest-700/40 px-5 py-4 font-semibold" colspan={bedTypes.length + 1}>
+            <td class="border border-cream/15 px-5 py-4 font-semibold" colspan={bedTypes.length + 1}>
               Total
             </td>
-            <td class="border border-forest-700/40 px-5 py-4 text-right font-semibold">{sleepingTotal}</td>
+            <td class="border border-cream/15 px-5 py-4 text-right font-semibold">{sleepingTotal}</td>
           </tr>
         </tfoot>
       </table>
