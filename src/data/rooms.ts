@@ -71,10 +71,10 @@ export const rooms: Room[] = [
       'Little Meadow is the intimate counterpart to its larger neighbor — a snug, welcoming room reached through the Meadow room, with the garden and meadow beyond.',
       'Two twin beds and space for a crib make it a comfortable, flexible spot for two, or for little ones close to the family.',
     ],
-    image: '/media/rooms/littlemeadow/littlemeadow-01.jpg',
+    image: '/media/rooms/littlemeadow/littlemeadow-02.jpg',
     gallery: [
-      '/media/rooms/littlemeadow/littlemeadow-01.jpg',
       '/media/rooms/littlemeadow/littlemeadow-02.jpg',
+      '/media/rooms/littlemeadow/littlemeadow-01.jpg',
     ],
   },
   {
@@ -88,10 +88,10 @@ export const rooms: Room[] = [
       'The Hilltop room crowns the second floor of the house, offering some of the longest views across the property toward the lake and the ridgeline.',
       'A full bed and a twin bed sleep up to three, and a quiet perch above the trees makes it a peaceful place to end the day.',
     ],
-    image: '/media/rooms/hilltop/hilltop-01.jpg',
+    image: '/media/rooms/hilltop/hilltop-02.jpg',
     gallery: [
-      '/media/rooms/hilltop/hilltop-01.jpg',
       '/media/rooms/hilltop/hilltop-02.jpg',
+      '/media/rooms/hilltop/hilltop-01.jpg',
     ],
   },
   {
