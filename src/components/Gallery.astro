@@ -11,19 +11,110 @@ import { galleryImages } from '../data/site';
       </p>
     </header>
 
-    <div class="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4">
+    <div
+      class="slideshow group relative mx-auto aspect-video max-w-5xl overflow-hidden rounded-xl border border-bark-200 bg-bark-900"
+    >
       {
-        galleryImages.map((img) => (
-          <figure class="overflow-hidden rounded-xl border border-bark-200 bg-bark-100">
-            <img
-              src={img.src}
-              alt={img.alt}
-              loading="lazy"
-              class="w-full object-cover"
-            />
-          </figure>
+        galleryImages.map((img, i) => (
+          <img
+            src={img.src}
+            alt={img.alt}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+            class="slide absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-1000"
+            data-index={i}
+          />
         ))
       }
+
+      <button
+        class="slide-prev absolute left-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-bark-900/40 text-2xl leading-none text-cream/90 backdrop-blur-sm transition hover:bg-bark-900/70 hover:text-cream"
+        aria-label="Previous image"
+      >
+        ‹
+      </button>
+      <button
+        class="slide-next absolute right-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-bark-900/40 text-2xl leading-none text-cream/90 backdrop-blur-sm transition hover:bg-bark-900/70 hover:text-cream"
+        aria-label="Next image"
+      >
+        ›
+      </button>
+
+      <div class="slide-dots absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+        {
+          galleryImages.map((_, i) => (
+            <button
+              class="slide-dot h-2 w-2 rounded-full bg-cream/40 transition hover:bg-cream/70"
+              data-goto={i}
+              aria-label={`Go to image ${i + 1}`}
+            />
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  const container = document.querySelector<HTMLElement>('.slideshow');
+
+  if (container) {
+    const slides = Array.from(container.querySelectorAll<HTMLElement>('.slide'));
+    const dots = Array.from(container.querySelectorAll<HTMLElement>('.slide-dot'));
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+
+    let current = 0;
+    let timer: ReturnType<typeof setInterval> | undefined;
+
+    function show(i: number) {
+      slides.forEach((s, idx) => (s.style.opacity = idx === i ? '1' : '0'));
+      dots.forEach((d, idx) => {
+        d.classList.toggle('bg-cream', idx === i);
+        d.classList.toggle('bg-cream/40', idx !== i);
+      });
+      current = i;
+    }
+
+    function next() {
+      show((current + 1) % slides.length);
+    }
+
+    function prev() {
+      show((current - 1 + slides.length) % slides.length);
+    }
+
+    function startAutoplay() {
+      if (prefersReducedMotion || slides.length < 2) return;
+      stopAutoplay();
+      timer = setInterval(next, 4000);
+    }
+
+    function stopAutoplay() {
+      if (timer) clearInterval(timer);
+      timer = undefined;
+    }
+
+    container.querySelector('.slide-next')?.addEventListener('click', () => {
+      next();
+      startAutoplay();
+    });
+    container.querySelector('.slide-prev')?.addEventListener('click', () => {
+      prev();
+      startAutoplay();
+    });
+    dots.forEach((d, i) =>
+      d.addEventListener('click', () => {
+        show(i);
+        startAutoplay();
+      }),
+    );
+
+    container.addEventListener('mouseenter', stopAutoplay);
+    container.addEventListener('mouseleave', startAutoplay);
+
+    show(0);
+    startAutoplay();
+  }
+</script>

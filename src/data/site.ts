@@ -21,46 +21,6 @@ export const navLinks = [
   { label: 'Contact', href: '/#contact' },
 ];
 
-// The four-part property story, in order.
-export const propertyStory = [
-  {
-    id: 'the-house',
-    title: 'The House',
-    image: '/media/story/the-house.jpg',
-    body: [
-      'Holliday Lake House was built to be lived in slowly. Wide porches, big windows, and rooms that open toward the water invite you to settle in and stay a while.',
-      'Seven bedrooms sleep up to twenty-two, so there is room for the whole family — or the whole reunion — under one warm roof.',
-    ],
-  },
-  {
-    id: 'the-lake-and-the-land',
-    title: 'The Lake & The Land',
-    image: '/media/story/the-lake-and-the-land.jpg',
-    body: [
-      'The lake is the heart of the property — for swimming, paddling, fishing, or simply watching the light change across the water at the end of the day.',
-      'Beyond the shoreline, acres of meadow and forest give room to wander, to sit by a fire, and to feel the seasons turn.',
-    ],
-  },
-  {
-    id: 'the-story-behind-the-house',
-    title: 'The Story Behind the House',
-    image: '/media/story/the-story-behind-the-house.jpg',
-    body: [
-      'Every board and beam here holds a story. The house has been shaped over the years by the family who love it, and by the land that surrounds it.',
-      'We share it now in the hope that it becomes part of your story, too — a place your family returns to, season after season.',
-    ],
-  },
-  {
-    id: 'north-fork-california',
-    title: 'North Fork California',
-    image: '/media/story/north-fork-california.jpg',
-    body: [
-      'Tucked into the foothills of the Sierra Nevada near Yosemite, North Fork is the quiet, wooded heart of California — the state’s exact geographic center.',
-      'It is a place of tall pines, clear water, and small-town warmth, far from the crowds and close to everything that matters.',
-    ],
-  },
-];
-
 // The three feature cards near the top of the home page.
 export const featureCards = [
   {
