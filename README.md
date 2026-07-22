@@ -28,8 +28,9 @@ src/
     site.ts        # nav, story, feature cards, gallery, JotForm + Instagram links
     rooms.ts       # the 7 rooms (slug, floor, beds, capacity, copy, images)
   layouts/Base.astro
-  components/       # Nav, Hero, FeatureCards, Gallery, OurStory,
-                    # SleepingArrangements, RoomCards, Contact, Footer
+  components/       # Nav, Hero, FeatureCards, Gallery, StoryIntro,
+                    # StoryDetail, SleepingArrangements, RoomCards,
+                    # Contact, Footer
   pages/
     index.astro           # home
     [room].astro          # /ponderosa, /meadow, /littlemeadow, /hilltop,
