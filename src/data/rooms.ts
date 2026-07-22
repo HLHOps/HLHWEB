@@ -152,3 +152,43 @@ export const totalCapacity = rooms.reduce((sum, r) => sum + r.capacity, 0);
 
 /** Total number of rooms. */
 export const roomCount = rooms.length;
+
+// --- Sleeping Arrangements matrix -------------------------------------------
+//
+// The source site presents sleeping arrangements as a bed-type matrix: one row
+// per room, a column per bed type, numeric counts in the cells. This mirrors
+// that structure verbatim (including the "Common Area" label for the
+// window-sleeper room, and the Lake room's configurable asterisks). Counts here
+// are the table's own figures and are intentionally independent of each room's
+// prose `beds` copy above.
+
+/** Bed-type columns, in the order the source table lists them. */
+export const bedTypes = ['King', 'Queen', 'Full', 'Twin', 'Window Sleeper'] as const;
+
+export interface SleepingRow {
+  /** Label shown in the far-left column. */
+  label: string;
+  /** Room slug the label links to, when it maps to a room page. */
+  slug?: string;
+  /** Bed counts keyed by bed type; omitted types render as blank cells. */
+  cells: Partial<Record<(typeof bedTypes)[number], string>>;
+  /** Value in the Sleeps column (may carry a configurable asterisk). */
+  sleeps: string;
+}
+
+export const sleepingMatrix: SleepingRow[] = [
+  { label: 'Ponderosa', slug: 'ponderosa', cells: { King: '1' }, sleeps: '2' },
+  { label: 'Meadow', slug: 'meadow', cells: { Queen: '1', 'Window Sleeper': '1' }, sleeps: '3' },
+  { label: 'Little Meadow', slug: 'littlemeadow', cells: { Twin: '2' }, sleeps: '2' },
+  { label: 'Hilltop', slug: 'hilltop', cells: { Full: '1', Twin: '1' }, sleeps: '3' },
+  { label: 'Lake', slug: 'lake', cells: { King: '1*', Twin: '2*' }, sleeps: '2*' },
+  { label: 'Loft', slug: 'loft', cells: { Full: '1' }, sleeps: '2' },
+  { label: 'Common Area', slug: 'winbeds', cells: { 'Window Sleeper': '8' }, sleeps: '8' },
+];
+
+/** Total guests the house sleeps, as shown in the matrix's Total row. */
+export const sleepingTotal = '22';
+
+/** Footnote shown beneath the sleeping matrix. */
+export const sleepingFootnote =
+  'Lake can be configured as a King or 2 Twins. Default is a King. Please let us know that you want Twins';

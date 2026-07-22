@@ -1,5 +1,11 @@
 ---
-import { rooms, roomCount, totalCapacity } from '../data/rooms';
+import {
+  bedTypes,
+  sleepingMatrix,
+  sleepingTotal,
+  sleepingFootnote,
+  totalCapacity,
+} from '../data/rooms';
 ---
 
 <section id="sleeping" class="bg-forest-900 py-20 text-cream">
@@ -7,48 +13,60 @@ import { rooms, roomCount, totalCapacity } from '../data/rooms';
     <header class="mx-auto mb-10 max-w-2xl text-center">
       <h2 class="text-3xl sm:text-4xl">Sleeping Arrangements</h2>
       <p class="mt-4 text-forest-100">
-        {roomCount} bedrooms sleeping up to {totalCapacity} guests, spread across the levels of the house.
+        How the house sleeps — up to {totalCapacity} guests across the rooms and common area.
       </p>
     </header>
 
     <div class="overflow-x-auto rounded-2xl border border-forest-700 bg-forest-800/60">
-      <table class="w-full min-w-[32rem] text-left">
+      <table class="w-full min-w-[36rem] text-left">
         <thead>
           <tr class="border-b border-forest-700 text-sm uppercase tracking-wide text-forest-200">
             <th scope="col" class="px-5 py-4 font-semibold">Room</th>
-            <th scope="col" class="px-5 py-4 font-semibold">Level</th>
-            <th scope="col" class="px-5 py-4 font-semibold">Beds</th>
+            {
+              bedTypes.map((bed) => (
+                <th scope="col" class="px-4 py-4 text-center font-semibold">
+                  {bed}
+                </th>
+              ))
+            }
             <th scope="col" class="px-5 py-4 text-right font-semibold">Sleeps</th>
           </tr>
         </thead>
         <tbody>
           {
-            rooms.map((room) => (
+            sleepingMatrix.map((row) => (
               <tr class="border-b border-forest-700/60 last:border-0">
                 <th scope="row" class="px-5 py-4 font-normal">
-                  <a
-                    href={`/${room.slug}`}
-                    class="text-cream underline decoration-gold-400/70 decoration-1 underline-offset-4 transition-colors hover:decoration-gold-300"
-                  >
-                    {room.name}
-                  </a>
+                  {row.slug ? (
+                    <a
+                      href={`/${row.slug}`}
+                      class="text-cream underline decoration-gold-400/70 decoration-1 underline-offset-4 transition-colors hover:decoration-gold-300"
+                    >
+                      {row.label}
+                    </a>
+                  ) : (
+                    row.label
+                  )}
                 </th>
-                <td class="px-5 py-4 text-forest-100">{room.floor}</td>
-                <td class="px-5 py-4 text-forest-100">{room.beds}</td>
-                <td class="px-5 py-4 text-right text-forest-100">{room.capacity}</td>
+                {bedTypes.map((bed) => (
+                  <td class="px-4 py-4 text-center text-forest-100">{row.cells[bed] ?? ''}</td>
+                ))}
+                <td class="px-5 py-4 text-right text-forest-100">{row.sleeps}</td>
               </tr>
             ))
           }
         </tbody>
         <tfoot>
           <tr class="text-gold-200">
-            <td class="px-5 py-4 font-semibold" colspan="3">
-              {roomCount} rooms
-            </td>
-            <td class="px-5 py-4 text-right font-semibold">{totalCapacity}</td>
+            <td class="px-5 py-4 font-semibold" colspan={bedTypes.length + 1}>Total</td>
+            <td class="px-5 py-4 text-right font-semibold">{sleepingTotal}</td>
           </tr>
         </tfoot>
       </table>
     </div>
+
+    <p class="mx-auto mt-4 max-w-2xl text-sm italic text-forest-200">
+      *{sleepingFootnote}
+    </p>
   </div>
 </section>
