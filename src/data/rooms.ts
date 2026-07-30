@@ -120,7 +120,7 @@ export const rooms: Room[] = [
     tagline: 'An open second-floor loft under the open beams of the house.',
     description: [
       'The Loft is an open, light-filled space beneath the open beams on the second floor.',
-      'A queen bed and an adjoining common area give it a relaxed, sociable feel — a comfortable retreat for two at the heart of the upstairs.',
+      'A full bed and an adjoining common area give it a relaxed, sociable feel — a comfortable retreat for two at the heart of the upstairs.',
     ],
     image: '/media/rooms/loft/loft-01.jpg',
     gallery: [
