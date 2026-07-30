@@ -115,7 +115,7 @@ export const rooms: Room[] = [
     slug: 'loft',
     name: 'Loft',
     floor: '2nd floor',
-    beds: 'Queen bed, common area',
+    beds: 'Full bed, common area',
     capacity: 2,
     tagline: 'An open second-floor loft under the eaves of the house.',
     description: [
