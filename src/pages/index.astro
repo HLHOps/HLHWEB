@@ -8,18 +8,6 @@ import PropertyStory from '../components/PropertyStory.astro';
 import SleepingArrangements from '../components/SleepingArrangements.astro';
 import RoomCards from '../components/RoomCards.astro';
 import Contact from '../components/Contact.astro';
----
-
-<Base>
-  <Hero />
-  <Intro />
-  <FeatureCards />
-  <Gallery />
-  <PropertyStory />
-  <SleepingArrangements />
-  <RoomCards />
-  <Contact />
----
 import { site } from '../data/site';
 import { rooms, totalCapacity } from '../data/rooms';
 
@@ -74,5 +62,14 @@ const jsonLd = {
 };
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+<Base>
+  <Hero />
+  <Intro />
+  <FeatureCards />
+  <Gallery />
+  <PropertyStory />
+  <SleepingArrangements />
+  <RoomCards />
+  <Contact />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 </Base>
