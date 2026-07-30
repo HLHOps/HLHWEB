@@ -7,11 +7,14 @@ import { site } from '../data/site';
 interface Props {
   title?: string;
   description?: string;
+  /** Social-share image path (relative to the site root); defaults to the hero poster. */
+  image?: string;
 }
 
 const {
   title = `${site.name} — ${site.tagline}`,
   description = 'Discover a unique waterfront getaway and unforgettable vacation experience at Holliday Lake House. Now available for short term rental.',
+  image = site.heroPoster,
 } = Astro.props;
 
 // Self-referential canonical, always the trailing-slash form of this page's
@@ -21,6 +24,8 @@ const canonicalURL = new URL(
   Astro.url.pathname.replace(/\/+$/, '') + '/',
   Astro.site,
 );
+// Absolute URL for the social-card image, resolved against the same domain.
+const ogImageURL = new URL(image, Astro.site);
 ---
 
 <!doctype html>
@@ -34,9 +39,23 @@ const canonicalURL = new URL(
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:alt" content={title} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
     <meta name="theme-color" content="#3d2f23" />
   </head>
   <body class="min-h-screen bg-cream text-ink antialiased">

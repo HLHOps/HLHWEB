@@ -9,6 +9,58 @@ import StoryDetail from '../components/StoryDetail.astro';
 import SleepingArrangements from '../components/SleepingArrangements.astro';
 import RoomCards from '../components/RoomCards.astro';
 import Contact from '../components/Contact.astro';
+import { site } from '../data/site';
+import { rooms, totalCapacity } from '../data/rooms';
+
+const baseUrl = Astro.site; // https://hollidaylakehouse.com/
+
+const findRoom = (slug: string) => rooms.find((r) => r.slug === slug)!;
+
+const privateRoomSlugs = ['ponderosa', 'meadow', 'littlemeadow', 'hilltop', 'lake'];
+const privateRooms = privateRoomSlugs.map(findRoom);
+const loft = findRoom('loft');
+const winbeds = findRoom('winbeds');
+
+const amenityFeature = [
+  ...privateRooms.map((r) => ({
+    '@type': 'LocationFeatureSpecification',
+    name: `${r.name} — ${r.beds}, sleeps ${r.capacity}`,
+  })),
+  {
+    '@type': 'LocationFeatureSpecification',
+    name: `Common Area — ${loft.beds} + ${winbeds.beds}, sleeps ${loft.capacity + winbeds.capacity}`,
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LodgingBusiness',
+  '@id': `${baseUrl}#business`,
+  name: site.name,
+  description:
+    'A private 80-acre waterfront retreat near North Fork, California, with its own lake. The whole house books together, sleeping up to 22 guests across 5 bedrooms plus common-area sleeping.',
+  url: baseUrl.href,
+  image: new URL(site.heroPoster, baseUrl).href,
+  logo: new URL(site.logo, baseUrl).href,
+  sameAs: [site.instagramUrl],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'North Fork',
+    addressRegion: 'CA',
+    addressCountry: 'US',
+  },
+  numberOfRooms: 5,
+  occupancy: {
+    '@type': 'QuantitativeValue',
+    maxValue: totalCapacity,
+    unitText: 'person',
+  },
+  amenityFeature,
+  potentialAction: {
+    '@type': 'ReserveAction',
+    target: site.jotformUrl,
+  },
+};
 ---
 
 <Base>
@@ -21,4 +73,5 @@ import Contact from '../components/Contact.astro';
   <RoomCards />
   <SleepingArrangements />
   <Contact />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 </Base>
