@@ -4,7 +4,8 @@ import Hero from '../components/Hero.astro';
 import Intro from '../components/Intro.astro';
 import FeatureCards from '../components/FeatureCards.astro';
 import Gallery from '../components/Gallery.astro';
-import PropertyStory from '../components/PropertyStory.astro';
+import StoryIntro from '../components/StoryIntro.astro';
+import StoryDetail from '../components/StoryDetail.astro';
 import SleepingArrangements from '../components/SleepingArrangements.astro';
 import RoomCards from '../components/RoomCards.astro';
 import Contact from '../components/Contact.astro';
@@ -66,10 +67,11 @@ const jsonLd = {
   <Hero />
   <Intro />
   <FeatureCards />
+  <StoryIntro />
   <Gallery />
-  <PropertyStory />
-  <SleepingArrangements />
+  <StoryDetail />
   <RoomCards />
+  <SleepingArrangements />
   <Contact />
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 </Base>
