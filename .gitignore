@@ -31,4 +31,5 @@ yarn-error.log*
 # git (see public/media/README.md). The placeholder generator
 # (scripts/make-placeholders.mjs) skips any file that already exists, so these
 # real assets are authoritative.
-package-lock.json
+
+# NOTE: package-lock.json is intentionally committed so `npm ci` works.
