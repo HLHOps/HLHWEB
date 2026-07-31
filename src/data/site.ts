@@ -6,7 +6,6 @@ export const site = {
   jotformUrl: 'https://form.jotform.com/242805978807067',
   instagramHandle: '@thehollidaylakehouse',
   instagramUrl: 'https://www.instagram.com/thehollidaylakehouse',
-  guestGuidelinesPath: '/hlhid2604/',
   // Hero background video hosted on Cloudflare R2 (kept out of the Worker
   // asset bundle). NOTE: this is R2's rate-limited public development URL,
   // intended for testing only — swap for a custom R2 domain before launch.

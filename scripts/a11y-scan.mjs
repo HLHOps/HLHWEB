@@ -45,7 +45,7 @@ const server = createServer(async (req, res) => {
 });
 
 const PAGES = ['/', '/hilltop/', '/littlemeadow/', '/ponderosa/', '/meadow/',
-  '/lake/', '/loft/', '/winbeds/', '/hlhid2604/'];
+  '/lake/', '/loft/', '/winbeds/'];
 
 await new Promise((r) => server.listen(0, r));
 const port = server.address().port;

@@ -35,7 +35,6 @@ src/
     index.astro           # home
     [room].astro          # /ponderosa, /meadow, /littlemeadow, /hilltop,
                           #   /lake, /loft, /winbeds (one per room, static)
-    hlhid2604/index.astro # Guest Guidelines, preserved at /hlhid2604/
 public/
   media/           # photography + hero video (see public/media/README.md)
 ```
@@ -55,9 +54,6 @@ pieces use clearly-marked placeholders wired to the correct paths:
 2. **Per-room bed/floor/capacity** — the figures in `src/data/rooms.ts` sum to
    the brief's totals (7 rooms, sleeps 22) but should be reconciled against the
    authoritative migration brief.
-3. **Guest Guidelines copy** — `src/pages/hlhid2604/index.astro` preserves the
-   exact `/hlhid2604/` path with placeholder section copy; replace the body text
-   with the original guidelines.
 
 ## Deployment
 
