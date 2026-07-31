@@ -14,8 +14,8 @@ const { room } = Astro.props;
 ---
 
 <Base
-  title={`${room.name} — Holliday Lake House`}
-  description={room.tagline}
+  title={room.metaTitle}
+  description={room.metaDescription}
   image={room.image}
 >
   <!-- Room hero image -->
