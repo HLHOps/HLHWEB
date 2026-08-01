@@ -2,7 +2,7 @@
 
 export const site = {
   name: 'Holliday Lake House',
-  tagline: 'A Unique Waterfront Getaway',
+  tagline: 'Your Own Private Lake in the California Sierra',
   jotformUrl: 'https://form.jotform.com/242805978807067',
   instagramHandle: '@thehollidaylakehouse',
   instagramUrl: 'https://www.instagram.com/thehollidaylakehouse',
