@@ -156,13 +156,12 @@ export const rooms: Room[] = [
     floor: '1st & 2nd floor',
     beds: '8 Pullman-style window sleeper beds',
     capacity: 8,
-    tagline: 'The window-bed room — a playful, flexible space that sleeps the whole crew.',
+    tagline: 'A playful, flexible window-bed space that sleeps the whole crew.',
     metaTitle: 'Winbeds | Holliday Lake House',
     metaDescription:
       'Eight window-sleeper beds in the shared common area, ideal for a crowd of kids or a full group — part of the whole-house booking at Holliday Lake House.',
     description: [
-      'Winbeds is the house’s window-bed room, a flexible space spanning the first and second floors and built for the extra guests every good gathering brings.',
-      'Eight Pullman-style window sleeper beds sleep up to eight, making it the perfect spot for cousins, kids, or a crowd of old friends.',
+      'Designed after Pullman railroad sleeper cars. There are 8 Window Sleepers on the 1st & 2nd floors, plus the Window Sleeper in Meadow. They sleep 1 person. The Window Sleepers on the 2nd floor have curtains to close them off. They are enjoyed by children and young adults. Equipped with reading light and device charger.',
     ],
     image: '/media/rooms/winbeds/winbeds-01.jpg',
     gallery: [
