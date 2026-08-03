@@ -88,6 +88,7 @@ const { room } = Astro.props;
         href={site.jotformUrl}
         target="_blank"
         rel="noopener noreferrer"
+        onclick="window.plausible && window.plausible('Get in Touch Click')"
         class="mt-6 inline-block rounded-full bg-forest-600 px-8 py-3 text-cream transition-colors hover:bg-forest-700"
       >
         Get in Touch<span class="sr-only"> (opens in a new tab)</span>
