@@ -15,8 +15,12 @@ export default defineConfig({
   },
   integrations: [
     // Emits sitemap-index.xml + sitemap-0.xml against the `site` domain above.
-    // The homepage and the 7 room pages are advertised to search engines.
-    sitemap(),
+    // Exclude the private, guest-facing checklist page (/quick-checklist/) so
+    // it is not advertised to search engines; the homepage and the 7 room
+    // pages remain. The page also carries a `noindex` robots meta tag.
+    sitemap({
+      filter: (page) => !page.includes('/quick-checklist'),
+    }),
   ],
   vite: {
     plugins: [tailwindcss()],

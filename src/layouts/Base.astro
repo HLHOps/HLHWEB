@@ -9,12 +9,20 @@ interface Props {
   description?: string;
   /** Social-share image path (relative to the site root); defaults to the hero poster. */
   image?: string;
+  /**
+   * When true, emit a `noindex, nofollow` robots meta tag so search engines
+   * skip the page. Used for guest-facing, post-booking pages that should be
+   * reachable only via a direct link (e.g. /quick-checklist/). Such pages must
+   * also be excluded from the sitemap filter in astro.config.mjs.
+   */
+  noindex?: boolean;
 }
 
 const {
   title = `${site.name} — ${site.tagline}`,
   description = 'Discover a unique waterfront getaway and unforgettable vacation experience at Holliday Lake House. Now available for short term rental.',
   image = site.heroPoster,
+  noindex = false,
 } = Astro.props;
 
 // Self-referential canonical, always the trailing-slash form of this page's
@@ -39,6 +47,7 @@ const ogImageURL = new URL(image, Astro.site);
     <link rel="apple-touch-icon" href={site.logoIcon} />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Open Graph / Facebook -->
