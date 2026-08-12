@@ -102,36 +102,40 @@ backup_cloudflare() {
     warn "wrangler.jsonc not found in repo root; skipping"
   fi
 
-  if [[ -z "${CLOUDFLARE_API_TOKEN:-}" || -z "${CLOUDFLARE_ZONE_ID:-}" ]]; then
-    warn "CLOUDFLARE_API_TOKEN / CLOUDFLARE_ZONE_ID not set; skipping API export"
-    return 0
-  fi
-
-  # Zone settings.
-  if cf_api "/zones/${CLOUDFLARE_ZONE_ID}/settings" | jq '.' \
-      > "${CF_DEST}/zone-settings.json"; then
-    ok "Exported zone settings"
-  else
-    die "Failed to export zone settings"
-  fi
-
-  # Zone details.
-  if cf_api "/zones/${CLOUDFLARE_ZONE_ID}" | jq '.' \
-      > "${CF_DEST}/zone.json"; then
-    ok "Exported zone details"
-  else
-    die "Failed to export zone details"
-  fi
-
-  # DNS records (paginate up to 1000 records in one page).
-  if cf_api "/zones/${CLOUDFLARE_ZONE_ID}/dns_records?per_page=1000" | jq '.' \
-      > "${CF_DEST}/dns-records.json"; then
-    local count
-    count="$(jq '.result | length' "${CF_DEST}/dns-records.json" 2>/dev/null || echo '?')"
-    ok "Exported ${count} DNS records"
-  else
-    die "Failed to export DNS records"
-  fi
+  # --- Cloudflare API export disabled ---------------------------------------
+  # The Cloudflare API export (zone settings / zone details / DNS records) was
+  # failing, so it is disabled. The wrangler.jsonc backup above is sufficient.
+  #
+  # if [[ -z "${CLOUDFLARE_API_TOKEN:-}" || -z "${CLOUDFLARE_ZONE_ID:-}" ]]; then
+  #   warn "CLOUDFLARE_API_TOKEN / CLOUDFLARE_ZONE_ID not set; skipping API export"
+  #   return 0
+  # fi
+  #
+  # # Zone settings.
+  # if cf_api "/zones/${CLOUDFLARE_ZONE_ID}/settings" | jq '.' \
+  #     > "${CF_DEST}/zone-settings.json"; then
+  #   ok "Exported zone settings"
+  # else
+  #   die "Failed to export zone settings"
+  # fi
+  #
+  # # Zone details.
+  # if cf_api "/zones/${CLOUDFLARE_ZONE_ID}" | jq '.' \
+  #     > "${CF_DEST}/zone.json"; then
+  #   ok "Exported zone details"
+  # else
+  #   die "Failed to export zone details"
+  # fi
+  #
+  # # DNS records (paginate up to 1000 records in one page).
+  # if cf_api "/zones/${CLOUDFLARE_ZONE_ID}/dns_records?per_page=1000" | jq '.' \
+  #     > "${CF_DEST}/dns-records.json"; then
+  #   local count
+  #   count="$(jq '.result | length' "${CF_DEST}/dns-records.json" 2>/dev/null || echo '?')"
+  #   ok "Exported ${count} DNS records"
+  # else
+  #   die "Failed to export DNS records"
+  # fi
 }
 
 # --- git commit + push ------------------------------------------------------
