@@ -3,7 +3,7 @@
 # backup.sh — Monthly backup of R2 media and Cloudflare configuration.
 #
 # Backs up:
-#   * R2 bucket "hlh-media"       -> ./backups/r2-media/<date>/
+#   * R2 bucket "hlhweb-media"    -> ./backups/r2-media/<date>/
 #   * Cloudflare config           -> ./backups/cloudflare/<date>/
 #       - wrangler.jsonc (repo copy)
 #       - zone settings (Cloudflare API)
@@ -17,7 +17,7 @@
 # Environment variables:
 #   CLOUDFLARE_API_TOKEN   API token with Zone:Read + DNS:Read (required for CF export)
 #   CLOUDFLARE_ZONE_ID     Zone ID to export (required for CF export)
-#   R2_BUCKET              Override R2 bucket name       (default: hlh-media)
+#   R2_BUCKET              Override R2 bucket name       (default: hlhweb-media)
 #   RCLONE_REMOTE          Override rclone remote name   (default: r2)
 #   BACKUP_ROOT            Override backup root directory (default: ./backups)
 #   RETENTION_DAYS         Days of backups to keep       (default: 365)
@@ -25,7 +25,7 @@
 set -euo pipefail
 
 # --- configuration ----------------------------------------------------------
-R2_BUCKET="${R2_BUCKET:-hlh-media}"
+R2_BUCKET="${R2_BUCKET:-hlhweb-media}"
 RCLONE_REMOTE="${RCLONE_REMOTE:-r2}"
 BACKUP_ROOT="${BACKUP_ROOT:-./backups}"
 RETENTION_DAYS="${RETENTION_DAYS:-365}"
