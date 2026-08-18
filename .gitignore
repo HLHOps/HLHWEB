@@ -33,3 +33,7 @@ yarn-error.log*
 # real assets are authoritative.
 
 # NOTE: package-lock.json is intentionally committed so `npm ci` works.
+
+# Python bytecode cache
+__pycache__/
+*.pyc
