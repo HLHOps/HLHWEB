@@ -1,0 +1,54 @@
+name: Plausible Weekly Report
+
+on:
+  schedule:
+    # 05:00 UTC every Monday.
+    - cron: "0 5 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: plausible-weekly
+  cancel-in-progress: false
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Generate report, update archive, and send email
+        env:
+          PLAUSIBLE_API_TOKEN: ${{ secrets.PLAUSIBLE_API_TOKEN }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          # Non-sensitive settings — edit here as needed.
+          PLAUSIBLE_SITE_ID: carmelplace.com
+          PLAUSIBLE_BASE_URL: https://plausible.io
+          # REPORT_RECIPIENTS defaults to GMAIL_ADDRESS if unset.
+          # REPORT_RECIPIENTS: sjones@carmelplace.com
+          ARCHIVE_PATH: analytics/plausible_weekly_archive.md
+        run: python .github/scripts/plausible_weekly_automation_email.py
+
+      - name: Commit updated archive
+        run: |
+          if [[ -n "$(git status --porcelain analytics/)" ]]; then
+            git add analytics/
+            git commit -m "chore: update Plausible weekly analytics archive"
+            git push
+          else
+            echo "No archive changes to commit."
+          fi
