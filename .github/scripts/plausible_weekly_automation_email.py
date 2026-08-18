@@ -2,8 +2,8 @@
 """Weekly Plausible analytics automation.
 
 Fetches the previous complete week (Mon-Sun) of stats from the Plausible
-Stats API, appends a summary to a Markdown archive committed back to the
-repo, and emails the report via Gmail SMTP.
+Stats API (v2), appends a summary to a Markdown archive committed back to
+the repo, and emails the report via Gmail SMTP.
 
 All configuration comes from environment variables so nothing sensitive is
 stored in the repository:
@@ -29,7 +29,6 @@ import smtplib
 import ssl
 import sys
 import urllib.error
-import urllib.parse
 import urllib.request
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -63,6 +62,10 @@ ARCHIVE_PATH = os.environ.get(
 
 REQUEST_TIMEOUT = 30
 
+# Aggregate metrics, in the order they are requested from (and returned by)
+# the v2 query API.
+AGG_METRICS = ["visitors", "pageviews", "visits", "bounce_rate", "visit_duration"]
+
 
 # --------------------------------------------------------------------------- #
 # Date range: previous complete week (Monday .. Sunday)
@@ -79,57 +82,85 @@ def previous_week_range(today: dt.date | None = None) -> tuple[dt.date, dt.date]
 
 
 # --------------------------------------------------------------------------- #
-# Plausible Stats API (v1)
+# Plausible Stats API (v2)
+#
+# The v2 API exposes a single POST endpoint, ``/api/v2/query``. Both
+# aggregate figures and breakdowns are expressed as JSON query bodies:
+#
+#   {"site_id": ..., "metrics": [...], "date_range": ["YYYY-MM-DD", ...],
+#    "dimensions": [...], "order_by": [...], "pagination": {...}}
+#
+# Results come back as a list of {"metrics": [...], "dimensions": [...]}
+# rows, where each metric/dimension is positional (same order as the query).
 # --------------------------------------------------------------------------- #
 
-def _plausible_get(path: str, params: dict) -> dict:
-    query = urllib.parse.urlencode(params)
-    url = f"{BASE_URL}/api/v1/stats/{path}?{query}"
+def _plausible_query(payload: dict) -> dict:
+    url = f"{BASE_URL}/api/v2/query"
+    data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(
         url,
+        data=data,
         headers={
             "Authorization": f"Bearer {PLAUSIBLE_API_TOKEN}",
+            "Content-Type": "application/json",
             "Accept": "application/json",
         },
+        method="POST",
     )
     try:
         with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT) as resp:
             return json.loads(resp.read().decode("utf-8"))
     except urllib.error.HTTPError as exc:
         body = exc.read().decode("utf-8", "replace")
-        sys.exit(f"ERROR: Plausible API {exc.code} for {path}: {body}")
+        sys.exit(f"ERROR: Plausible API {exc.code}: {body}")
     except urllib.error.URLError as exc:
-        sys.exit(f"ERROR: could not reach Plausible API for {path}: {exc.reason}")
+        sys.exit(f"ERROR: could not reach Plausible API: {exc.reason}")
 
 
-def fetch_aggregate(date_range: str) -> dict:
-    metrics = "visitors,pageviews,visits,bounce_rate,visit_duration"
-    data = _plausible_get(
-        "aggregate",
+def fetch_aggregate(date_range: list[str]) -> dict:
+    """Return a metric -> value mapping for the whole date range."""
+    data = _plausible_query(
         {
             "site_id": SITE_ID,
-            "period": "custom",
-            "date": date_range,
-            "metrics": metrics,
-        },
+            "metrics": AGG_METRICS,
+            "date_range": date_range,
+        }
     )
-    results = data.get("results", {})
-    return {metric: results.get(metric, {}).get("value") for metric in metrics.split(",")}
+    results = data.get("results", [])
+    if not results:
+        return {metric: None for metric in AGG_METRICS}
+    values = results[0].get("metrics", [])
+    return {
+        metric: (values[idx] if idx < len(values) else None)
+        for idx, metric in enumerate(AGG_METRICS)
+    }
 
 
-def fetch_breakdown(date_range: str, prop: str, metric: str, limit: int = 10) -> list[dict]:
-    data = _plausible_get(
-        "breakdown",
+def fetch_breakdown(
+    date_range: list[str], dimension: str, metric: str, limit: int = 10
+) -> list[dict]:
+    """Return breakdown rows as ``[{"name": str|None, "value": num|None}]``."""
+    data = _plausible_query(
         {
             "site_id": SITE_ID,
-            "period": "custom",
-            "date": date_range,
-            "property": prop,
-            "metrics": metric,
-            "limit": str(limit),
-        },
+            "metrics": [metric],
+            "date_range": date_range,
+            "dimensions": [dimension],
+            "order_by": [[metric, "desc"]],
+            "pagination": {"limit": limit},
+        }
     )
-    return data.get("results", [])
+    rows: list[dict] = []
+    for entry in data.get("results", []):
+        dims = entry.get("dimensions", [])
+        metrics = entry.get("metrics", [])
+        rows.append(
+            {
+                "name": dims[0] if dims else None,
+                "value": metrics[0] if metrics else None,
+            }
+        )
+    return rows
 
 
 # --------------------------------------------------------------------------- #
@@ -159,7 +190,7 @@ def fmt_percent(value) -> str:
 
 def build_report(start: dt.date, end: dt.date) -> tuple[str, str]:
     """Return (markdown, html) versions of the report."""
-    date_range = f"{start.isoformat()},{end.isoformat()}"
+    date_range = [start.isoformat(), end.isoformat()]
     agg = fetch_aggregate(date_range)
     top_sources = fetch_breakdown(date_range, "visit:source", "visitors")
     top_pages = fetch_breakdown(date_range, "event:page", "pageviews")
@@ -180,28 +211,28 @@ def build_report(start: dt.date, end: dt.date) -> tuple[str, str]:
     ]
     if top_sources:
         for row in top_sources:
-            name = row.get("source") or "(direct)"
-            md.append(f"- {name}: {fmt_number(row.get('visitors'))}")
+            name = row.get("name") or "(direct)"
+            md.append(f"- {name}: {fmt_number(row.get('value'))}")
     else:
         md.append("- (no data)")
     md += ["", "**Top pages**", ""]
     if top_pages:
         for row in top_pages:
-            page = row.get("page") or "(unknown)"
-            md.append(f"- {page}: {fmt_number(row.get('pageviews'))}")
+            page = row.get("name") or "(unknown)"
+            md.append(f"- {page}: {fmt_number(row.get('value'))}")
     else:
         md.append("- (no data)")
     md.append("")
     markdown = "\n".join(md)
 
     # --- HTML (for the email body) --- #
-    def rows_html(rows, key, metric_key, fallback="(direct)"):
+    def rows_html(rows, fallback="(direct)"):
         if not rows:
             return "<li>(no data)</li>"
         items = []
         for row in rows:
-            name = row.get(key) or fallback
-            items.append(f"<li>{name}: <strong>{fmt_number(row.get(metric_key))}</strong></li>")
+            name = row.get("name") or fallback
+            items.append(f"<li>{name}: <strong>{fmt_number(row.get('value'))}</strong></li>")
         return "".join(items)
 
     html = f"""\
@@ -216,9 +247,9 @@ def build_report(start: dt.date, end: dt.date) -> tuple[str, str]:
 <tr><td>Avg. visit duration</td><td><strong>{fmt_duration(agg.get('visit_duration'))}</strong></td></tr>
 </table>
 <h3>Top sources</h3>
-<ul>{rows_html(top_sources, 'source', 'visitors')}</ul>
+<ul>{rows_html(top_sources)}</ul>
 <h3>Top pages</h3>
-<ul>{rows_html(top_pages, 'page', 'pageviews', fallback='(unknown)')}</ul>
+<ul>{rows_html(top_pages, fallback='(unknown)')}</ul>
 <hr>
 <p style="color:#999;font-size:12px;">Generated automatically from Plausible Analytics.</p>
 </body></html>
