@@ -5,7 +5,7 @@
 // page reads from this file, so one edit per room propagates everywhere.
 
 export interface Room {
-  /** URL slug — becomes the route, e.g. /ponderosa */
+  /** URL slug — becomes the route, e.g. /ponderosa/ (always link with the trailing slash) */
   slug: string;
   /** Display name */
   name: string;
