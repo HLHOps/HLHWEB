@@ -1,0 +1,20 @@
+# Cloudflare Workers static-asset redirects (processed before asset lookup).
+# Fixes Google Search Console "Page with redirect" / "Not found (404)" reports.
+
+# 1) Bare room URLs -> canonical trailing-slash URLs, PERMANENT (301).
+#    Without these, Workers' auto-trailing-slash handling answers with a
+#    temporary 307, which Google treats as a weaker signal.
+/ponderosa      /ponderosa/      301
+/meadow         /meadow/         301
+/littlemeadow   /littlemeadow/   301
+/hilltop        /hilltop/        301
+/lake           /lake/           301
+/loft           /loft/           301
+/winbeds        /winbeds/        301
+/quick-checklist /quick-checklist/ 301
+
+# 2) Member pages live only on myhlh.com (see overview: nothing from the
+#    hlhid family belongs in HLHWEB). Old links Google still has get sent there.
+/hlhid* https://myhlh.com/hlhid:splat 301
+/toc    https://myhlh.com/toc 301
+/toc/   https://myhlh.com/toc 301
