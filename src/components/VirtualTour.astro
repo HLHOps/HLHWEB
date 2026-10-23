@@ -1,0 +1,42 @@
+---
+// 3D virtual tour (Matterport-style walkthrough hosted by the photographer,
+// mk-fresno-photo / seehouseat.com). Sits between the end of the story
+// ("North Fork, California") and The Rooms on the home page.
+const tourUrl =
+  'https://mk-fresno-photo.seehouseat.com/public/vtour/display/2408745?a=1&pws=1#!/';
+---
+
+<section id="tour" class="bg-bark-50 py-20">
+  <div class="mx-auto max-w-6xl px-5">
+    <header class="mx-auto mb-12 max-w-2xl text-center">
+      <h2 class="text-3xl text-bark-800 sm:text-4xl">Take the 3D Tour</h2>
+      <p class="mt-4 text-bark-600">
+        Walk through the house room by room before you arrive.
+      </p>
+    </header>
+
+    <div
+      class="mx-auto aspect-[4/3] max-w-5xl overflow-hidden rounded-xl border border-bark-200 bg-bark-900 sm:aspect-video"
+    >
+      <iframe
+        src={tourUrl}
+        title="Holliday Lake House 3D virtual tour"
+        loading="lazy"
+        allow="fullscreen; xr-spatial-tracking; gyroscope; accelerometer"
+        allowfullscreen
+        class="h-full w-full border-0"
+      ></iframe>
+    </div>
+
+    <p class="mt-4 text-center text-sm">
+      <a
+        href={tourUrl}
+        target="_blank"
+        rel="noopener"
+        class="text-gold-700 transition-colors hover:text-bark-800"
+      >
+        Open the tour full screen &rarr;
+      </a>
+    </p>
+  </div>
+</section>
