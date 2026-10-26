@@ -1,18 +1,17 @@
 {
   // Static site for jsholliday.com, served by its own Cloudflare Worker.
   // Deploy from this folder:  npx wrangler deploy
-  // First deploy lands on jsholliday.<account>.workers.dev for review.
-  // To go live on the real domain (zone must be in this Cloudflare account),
-  // uncomment "routes" and deploy again.
+  // Live on jsholliday.com + www since 2026-10-26 (custom domains, attached in the
+  // Cloudflare dashboard). The routes below mirror that so deploys keep them.
   "name": "jsholliday",
   "compatibility_date": "2026-07-16",
   "assets": {
     "directory": "./public",
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page"
-  }
-  // ,"routes": [
-  //   { "pattern": "jsholliday.com", "custom_domain": true },
-  //   { "pattern": "www.jsholliday.com", "custom_domain": true }
-  // ]
+  },
+  "routes": [
+    { "pattern": "jsholliday.com", "custom_domain": true },
+    { "pattern": "www.jsholliday.com", "custom_domain": true }
+  ]
 }

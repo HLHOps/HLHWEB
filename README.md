@@ -29,15 +29,41 @@ src/
     rooms.ts       # the 7 rooms (slug, floor, beds, capacity, copy, images)
   layouts/Base.astro
   components/       # Nav, Hero, FeatureCards, Gallery, StoryIntro,
-                    # StoryDetail, SleepingArrangements, RoomCards,
-                    # Contact, Footer
+                    # StoryDetail, VirtualTour, SleepingArrangements,
+                    # RoomCards, GuestComments, Contact, Footer
   pages/
     index.astro           # home
     [room].astro          # /ponderosa, /meadow, /littlemeadow, /hilltop,
                           #   /lake, /loft, /winbeds (one per room, static)
 public/
   media/           # photography + hero video (see public/media/README.md)
+sites/             # belindavidorholliday.com + jsholliday.com, separate Workers
+                   #   (see sites/README.md — not part of this Astro build)
 ```
+
+## Guest Comments
+
+`src/components/GuestComments.astro` renders the "Guest Comments" carousel
+above Plan Your Stay (2 cards at a time, 1 on phones, advances every 7s).
+
+- **Where comments come from:** entered in MyHLH → Admin → Guest Comments
+  (Lovable project "HLHOps"), stored in the HLHOps Supabase table
+  `public.guest_comments` (`name`, `comment`, `is_active`, `sort_order`).
+- **How the site reads them:** in the browser at page view, via the Supabase
+  REST API with the publishable key. RLS allows anonymous reads of
+  `is_active = true` rows only; only admins can write. New or edited comments
+  show up immediately, no rebuild or deploy.
+- The section stays hidden when there are no active comments or the request
+  fails.
+
+## Domains
+
+| Domain | Serves |
+|---|---|
+| hollidaylakehouse.com (+ www) | This site (Worker `hlhweb`) |
+| holidaylakehouse.com, hollidaylake.com, holidaylake.net, hollidaylake.net | 301 → hollidaylakehouse.com (Cloudflare Redirect Rules, see sites/README.md) |
+| belindavidorholliday.com, jsholliday.com | `sites/` Workers |
+
 
 ## Content that still needs the source of truth
 
@@ -63,3 +89,6 @@ pieces use clearly-marked placeholders wired to the correct paths:
 npm run build
 npx wrangler deploy
 ```
+
+A `git push` / merge builds a new Worker version but does **not** activate it;
+`npx wrangler deploy` is always required.
