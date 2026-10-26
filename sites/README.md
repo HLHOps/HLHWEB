@@ -7,6 +7,7 @@ not part of the hollidaylakehouse.com Astro build (that only builds `src/`).
 |---|---|---|---|
 | `belindavidorholliday/` | belindavidorholliday.com | `belindavidorholliday` | Tribute + Gallery, copied from the WordPress site at belindaholliday.com (Oct 2026). Celebration of Life and Guest Book intentionally not carried over. |
 | `jsholliday/` | jsholliday.com | `jsholliday` | Placeholder page (noindex) until real content is ready. |
+| `redirects/` | 6 alternate domains (+ www) | `domain-redirects` | 301-forwards belindaholliday.com and belindavidor.com to belindavidorholliday.com, and holidaylakehouse.com, hollidaylake.com, holidaylake.net, hollidaylake.net to hollidaylakehouse.com. Keeps path and query string. To add a domain, add it to `src/index.js` and `wrangler.jsonc`. |
 
 ## Deploy
 

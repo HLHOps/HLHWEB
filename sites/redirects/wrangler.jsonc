@@ -1,0 +1,25 @@
+{
+  // 301-forwards alternate domains to belindavidorholliday.com / hollidaylakehouse.com.
+  // Deploy from this folder:  npx wrangler deploy
+  // Each pattern below becomes a Worker custom domain; Cloudflare creates the
+  // DNS record and certificate. Any old @ / www record on these domains must be
+  // deleted first or the deploy stops with a conflict error.
+  "name": "domain-redirects",
+  "main": "src/index.js",
+  "compatibility_date": "2026-07-16",
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "belindaholliday.com", "custom_domain": true },
+    { "pattern": "www.belindaholliday.com", "custom_domain": true },
+    { "pattern": "belindavidor.com", "custom_domain": true },
+    { "pattern": "www.belindavidor.com", "custom_domain": true },
+    { "pattern": "holidaylakehouse.com", "custom_domain": true },
+    { "pattern": "www.holidaylakehouse.com", "custom_domain": true },
+    { "pattern": "hollidaylake.com", "custom_domain": true },
+    { "pattern": "www.hollidaylake.com", "custom_domain": true },
+    { "pattern": "holidaylake.net", "custom_domain": true },
+    { "pattern": "www.holidaylake.net", "custom_domain": true },
+    { "pattern": "hollidaylake.net", "custom_domain": true },
+    { "pattern": "www.hollidaylake.net", "custom_domain": true }
+  ]
+}
