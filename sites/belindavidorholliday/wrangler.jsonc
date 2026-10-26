@@ -1,0 +1,18 @@
+{
+  // Static site for belindavidorholliday.com, served by its own Cloudflare Worker.
+  // Deploy from this folder:  npx wrangler deploy
+  // First deploy lands on belindavidorholliday.<account>.workers.dev for review.
+  // To go live on the real domain (zone must be in this Cloudflare account),
+  // uncomment "routes" and deploy again.
+  "name": "belindavidorholliday",
+  "compatibility_date": "2026-07-16",
+  "assets": {
+    "directory": "./public",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+  // ,"routes": [
+  //   { "pattern": "belindavidorholliday.com", "custom_domain": true },
+  //   { "pattern": "www.belindavidorholliday.com", "custom_domain": true }
+  // ]
+}
