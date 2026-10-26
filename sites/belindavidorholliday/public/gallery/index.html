@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gallery – Belinda Vidor Holliday</title>
+  <meta name="description" content="Photographs of Belinda Vidor Holliday, 1930–2023." />
+  <link rel="canonical" href="https://belindavidorholliday.com/gallery/" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="site-title"><a href="/">Belinda Vidor Holliday</a></h1>
+    <p class="site-dates">June 12, 1930 – January 24, 2023</p>
+    <nav class="site-nav" aria-label="Main">
+      <a href="/">Belinda Vidor Holliday</a>
+      <a href="/gallery/" aria-current="page">Gallery</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="gallery" id="gallery">
+      <figure><a href="/media/BVH_5.jpg"><img src="/media/BVH_5.jpg" alt="King Vidor &amp; Belinda" loading="lazy" /></a><figcaption>King Vidor &amp; Belinda</figcaption></figure>
+      <figure><a href="/media/Belinda-Tony-1932.jpg"><img src="/media/Belinda-Tony-1932.jpg" alt="Belinda &amp; Tony 1932" loading="lazy" /></a><figcaption>Belinda &amp; Tony 1932</figcaption></figure>
+      <figure><a href="/media/BVH_3.jpg"><img src="/media/BVH_3.jpg" alt="Belinda Vidor Holliday" loading="lazy" /></a><figcaption>Belinda Vidor Holliday</figcaption></figure>
+      <figure><a href="/media/Belinda-Vidor-Holliday-6.12.30-1.24.23.jpg"><img src="/media/Belinda-Vidor-Holliday-6.12.30-1.24.23.jpg" alt="RIP" loading="lazy" /></a><figcaption>RIP</figcaption></figure>
+      <figure><a href="/media/BVH_8.jpg"><img src="/media/BVH_8.jpg" alt="Belinda Vidor Holliday" loading="lazy" /></a><figcaption>Belinda Vidor Holliday</figcaption></figure>
+      <figure><a href="/media/BVH_1-1.jpg"><img src="/media/BVH_1-1.jpg" alt="Belinda Vidor Holliday" loading="lazy" /></a><figcaption>Belinda Vidor Holliday</figcaption></figure>
+      <figure><a href="/media/BVH_7.jpg"><img src="/media/BVH_7.jpg" alt="Belinda Vidor Holliday" loading="lazy" /></a><figcaption>Belinda Vidor Holliday</figcaption></figure>
+      <figure><a href="/media/BVH_6.jpg"><img src="/media/BVH_6.jpg" alt="Belinda &amp; Taj" loading="lazy" /></a><figcaption>Belinda &amp; Taj</figcaption></figure>
+      <figure><a href="/media/BVH_9-3-scaled.jpg"><img src="/media/BVH_9-3-scaled.jpg" alt="Belinda Vidor Holliday" loading="lazy" /></a><figcaption>Belinda Vidor Holliday</figcaption></figure>
+      <figure><a href="/media/BVH_2.jpg"><img src="/media/BVH_2.jpg" alt="Belinda Vidor Holliday" loading="lazy" /></a><figcaption>Belinda Vidor Holliday</figcaption></figure>
+      <figure><a href="/media/BVH_4.jpg"><img src="/media/BVH_4.jpg" alt="Belinda Vidor Holliday" loading="lazy" /></a><figcaption>Belinda Vidor Holliday</figcaption></figure>
+      <figure><a href="/media/BVH-Bust-1-scaled.jpg"><img src="/media/BVH-Bust-1-scaled.jpg" alt="JS Holliday Bust" loading="lazy" /></a><figcaption>JS Holliday Bust</figcaption></figure>
+      <figure><a href="/media/Bench-1-scaled.jpg"><img src="/media/Bench-1-scaled.jpg" alt="Bench" loading="lazy" /></a><figcaption>Bench</figcaption></figure>
+    </div>
+  </main>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo" hidden>
+    <button type="button" aria-label="Close">&times;</button>
+    <img alt="" />
+    <p></p>
+  </div>
+
+  <footer class="site-footer">
+    In loving memory · <a href="/">Read her story</a>
+  </footer>
+
+  <script>
+    const lb = document.getElementById('lightbox');
+    const lbImg = lb.querySelector('img');
+    const lbCap = lb.querySelector('p');
+    const close = () => { lb.hidden = true; lbImg.src = ''; };
+    document.getElementById('gallery').addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
+      e.preventDefault();
+      const img = a.querySelector('img');
+      lbImg.src = a.href;
+      lbImg.alt = img.alt;
+      lbCap.textContent = img.alt;
+      lb.hidden = false;
+      lb.querySelector('button').focus();
+    });
+    lb.addEventListener('click', (e) => { if (e.target !== lbImg) close(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !lb.hidden) close(); });
+  </script>
+</body>
+</html>
