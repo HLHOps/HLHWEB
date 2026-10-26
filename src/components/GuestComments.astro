@@ -1,0 +1,133 @@
+---
+// Guest Comments carousel. Comments (Name & Comment) are entered by an admin
+// in MyHLH (Admin → Guest Comments) and stored in the HLHOps Supabase table
+// `public.guest_comments`. Active rows are publicly readable via RLS, so this
+// static page fetches them in the browser at view time — a new comment shows
+// up on the site immediately, no rebuild or deploy needed.
+//
+// Shows 2 comments at a time (1 on phones), sliding one card every 7s.
+// Pauses on hover/focus, honours prefers-reduced-motion, and the whole
+// section stays hidden if there are no active comments or the fetch fails.
+const SUPABASE_URL = 'https://hxdlulafowdcdyqxvnmh.supabase.co';
+// Publishable (client-safe) key; RLS restricts it to reading active comments.
+const SUPABASE_KEY = 'sb_publishable_V1tYA-Zye0c5GhjO3-VqrQ_Roh4GUCZ';
+const endpoint = `${SUPABASE_URL}/rest/v1/guest_comments?select=name,comment&is_active=eq.true&order=sort_order.asc,created_at.desc`;
+---
+
+<section
+  id="guest-comments"
+  class="bg-cream pt-20 pb-4"
+  aria-labelledby="guest-comments-heading"
+  hidden
+  data-endpoint={endpoint}
+  data-key={SUPABASE_KEY}
+>
+  <div class="mx-auto max-w-5xl px-5">
+    <header class="mx-auto mb-10 max-w-2xl text-center">
+      <h2 id="guest-comments-heading" class="text-3xl text-bark-800 sm:text-4xl">
+        Guest Comments
+      </h2>
+      <p class="mt-4 text-bark-600">In their own words.</p>
+    </header>
+
+    <div class="relative">
+      <div class="overflow-hidden" data-viewport>
+        <ul
+          class="flex transition-transform duration-700 ease-in-out motion-reduce:transition-none"
+          data-track
+          aria-live="off"
+        ></ul>
+      </div>
+
+      <div class="mt-8 flex items-center justify-center gap-4" data-controls hidden>
+        <button
+          type="button"
+          data-prev
+          class="flex h-10 w-10 items-center justify-center rounded-full border border-bark-300 text-bark-700 transition-colors hover:bg-bark-100"
+          aria-label="Previous comments"
+        >&larr;</button>
+        <button
+          type="button"
+          data-next
+          class="flex h-10 w-10 items-center justify-center rounded-full border border-bark-300 text-bark-700 transition-colors hover:bg-bark-100"
+          aria-label="Next comments"
+        >&rarr;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const section = document.getElementById('guest-comments') as HTMLElement | null;
+
+  async function init(root: HTMLElement) {
+    let rows: { name: string; comment: string }[] = [];
+    try {
+      const res = await fetch(root.dataset.endpoint!, {
+        headers: { apikey: root.dataset.key! },
+      });
+      if (!res.ok) return;
+      rows = await res.json();
+    } catch {
+      return;
+    }
+    if (!Array.isArray(rows) || rows.length === 0) return;
+
+    const track = root.querySelector<HTMLElement>('[data-track]')!;
+    for (const r of rows) {
+      const li = document.createElement('li');
+      li.className = 'w-full shrink-0 px-3 sm:w-1/2';
+      const fig = document.createElement('figure');
+      fig.className =
+        'flex h-full flex-col rounded-2xl border border-bark-200 bg-bark-100 px-7 py-8';
+      const quote = document.createElement('blockquote');
+      quote.className = 'flex-1 italic leading-relaxed text-bark-700';
+      quote.textContent = `“${r.comment}”`;
+      const cap = document.createElement('figcaption');
+      cap.className = 'mt-5 text-right text-bark-800';
+      cap.textContent = `— ${r.name}`;
+      fig.append(quote, cap);
+      li.append(fig);
+      track.append(li);
+    }
+    root.hidden = false;
+
+    const mq = window.matchMedia('(min-width: 640px)');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const perView = () => (mq.matches ? 2 : 1);
+    const maxIndex = () => Math.max(0, rows.length - perView());
+    let index = 0;
+
+    const controls = root.querySelector<HTMLElement>('[data-controls]')!;
+    const render = () => {
+      index = Math.min(index, maxIndex());
+      track.style.transform = `translateX(-${(index * 100) / perView()}%)`;
+      controls.hidden = maxIndex() === 0;
+      track.querySelectorAll('li').forEach((li, i) => {
+        const visible = i >= index && i < index + perView();
+        li.setAttribute('aria-hidden', String(!visible));
+      });
+    };
+    const step = (dir: 1 | -1) => {
+      const max = maxIndex();
+      index = index + dir > max ? 0 : index + dir < 0 ? max : index + dir;
+      render();
+    };
+
+    root.querySelector('[data-next]')!.addEventListener('click', () => step(1));
+    root.querySelector('[data-prev]')!.addEventListener('click', () => step(-1));
+    mq.addEventListener('change', render);
+    render();
+
+    let paused = false;
+    root.addEventListener('mouseenter', () => (paused = true));
+    root.addEventListener('mouseleave', () => (paused = false));
+    root.addEventListener('focusin', () => (paused = true));
+    root.addEventListener('focusout', () => (paused = false));
+    setInterval(() => {
+      if (!paused && !reduce.matches && !document.hidden && maxIndex() > 0) step(1);
+    }, 7000);
+  }
+
+  if (section) init(section);
+</script>
