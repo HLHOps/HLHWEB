@@ -95,3 +95,16 @@ main { padding: 2.5rem 1rem 4rem; }
 }
 
 .site-footer { border-top: 1px solid var(--rule); text-align: center; padding: 1.5rem 1rem; color: var(--muted); font-size: .95rem; }
+
+.inline-fig { max-width: 22rem; margin: 2.25rem auto; }
+.inline-fig img { border-radius: 6px; width: 100%; }
+.inline-fig figcaption { color: var(--muted); font-size: .95rem; text-align: center; margin-top: .6rem; }
+@media (min-width: 52rem) {
+  .inline-fig.right { float: right; width: 17rem; margin: .4rem -6rem 1.5rem 2rem; }
+  .inline-fig.left { float: left; width: 15rem; margin: .4rem 2rem 1.5rem -6rem; }
+}
+.prose h2 { clear: both; }
+.timeline { font-size: 1rem; color: var(--muted); }
+.timeline dt { color: var(--ink); float: left; width: 6.5rem; font-variant-numeric: tabular-nums; }
+.timeline dd { margin: 0 0 .5rem 6.5rem; }
+.see-also { text-align: center; margin-top: 2.5rem; }
