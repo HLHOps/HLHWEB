@@ -9,8 +9,8 @@ Plain HTML/CSS — edit files in `public/` directly, no build step.
 | `belindavidorholliday/` | belindavidorholliday.com + www | `belindavidorholliday` | Tribute + Gallery (13 photos, lightbox), copied verbatim from the old WordPress site at belindaholliday.com on 2026-10-26. Celebration of Life and Guest Book intentionally not carried over. |
 | `jsholliday/` | jsholliday.com + www | `jsholliday` | Placeholder page (`noindex`) until real content is ready. |
 
-Both went live on 2026-10-26. Review copies stay at
-`<worker>.sjones-d35.workers.dev`.
+Both went live on 2026-10-26. The `workers.dev` review URLs are off; each
+deploy goes straight to the real domain.
 
 ## Deploy a change
 
