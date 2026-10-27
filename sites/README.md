@@ -6,11 +6,15 @@ Plain HTML/CSS — edit files in `public/` directly, no build step.
 
 | Folder | Live at | Worker | Content |
 |---|---|---|---|
-| `belindavidorholliday/` | belindavidorholliday.com + www | `belindavidorholliday` | Tribute + Gallery (13 photos, lightbox), copied verbatim from the old WordPress site at belindaholliday.com on 2026-10-26. Celebration of Life and Guest Book intentionally not carried over. |
+| `belindavidorholliday/` | belindavidorholliday.com + www | `belindavidorholliday` | Biography (~1,900 words; original family tribute text kept nearly verbatim, expanded with research, 3 inline photos, timeline) + Gallery (13 photos, lightbox). Bio live 2026-10-27. Gallery copied from the old WordPress site at belindaholliday.com; Celebration of Life and Guest Book intentionally not carried over. |
 | `jsholliday/` | jsholliday.com + www | `jsholliday` | Full biography of J.S. Holliday (~2,200 words), published works, timeline, 4 photos. Live 2026-10-27. |
 
 Both went live on 2026-10-26. The `workers.dev` review URLs are off; each
 deploy goes straight to the real domain.
+
+Both pages share the same look (Georgia serif, cream/brown palette). Each site
+has its own `public/style.css`; the jsholliday copy started from Belinda's.
+Bio sources are listed in the descriptions of PRs #34 (J.S.) and #36 (Belinda).
 
 ## Deploy a change
 
