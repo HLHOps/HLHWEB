@@ -111,3 +111,8 @@ main { padding: 2.5rem 1rem 4rem; }
 .timeline dt { color: var(--ink); float: left; width: 5.5rem; font-variant-numeric: tabular-nums; }
 .timeline dd { margin: 0 0 .5rem 5.5rem; }
 .see-also { text-align: center; margin-top: 2.5rem; }
+.hero.portrait { max-width: 30rem; }
+.inline-fig.cover { max-width: 11rem; }
+@media (min-width: 52rem) { .inline-fig.right.cover { width: 11rem; } }
+.timeline dt { width: 6.5rem; }
+.timeline dd { margin-left: 6.5rem; }
